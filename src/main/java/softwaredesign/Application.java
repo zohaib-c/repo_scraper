@@ -76,6 +76,9 @@ public class Application {
         System.out.println("Please enter a valid GitHub repository url you would like to clone:");
         String[] repoDetails = setRepo(scanner.nextLine().trim().toLowerCase());
 
+        GitLog gitLog = new GitLog();
+        gitLog.runGitLog(repoDetails[0]);
+
         System.out.println("Enter a command:");
         createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()));
 

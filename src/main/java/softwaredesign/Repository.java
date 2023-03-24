@@ -1,6 +1,7 @@
 package softwaredesign;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 public class Repository extends Application{
     private final String repositoryUrl;
@@ -9,14 +10,20 @@ public class Repository extends Application{
 
     public Repository(String url){
         this.repositoryUrl = url;
-        String[] urlParts = url.split("/");
-        this.repoOwner = urlParts[3];
-        this.repoName = urlParts[4].replace(".git", "");
+        try {
+            String[] urlParts = url.split("/");
+            this.repoOwner = urlParts[3];
+            this.repoName = urlParts[4].replace(".git", "");
 
-        System.out.println(url);
+            System.out.println(url);
+        } catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+
     }
 
-    public void cloneRepo() {
+    public Boolean cloneRepo() {
+        Boolean validRepo = Boolean.FALSE;
 
         ProcessBuilder processBuilder = new ProcessBuilder("git", "clone", repositoryUrl);
         try {
@@ -25,11 +32,13 @@ public class Repository extends Application{
 
             if (exitCode == 0) {
                 System.out.println("Repository cloned successfully.\n");
+                validRepo = Boolean.TRUE;
             } else {
                 System.err.println("Failed to clone repository.\n");
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    return validRepo;
     }
 }
