@@ -1,7 +1,6 @@
 package softwaredesign;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -22,12 +21,13 @@ public class Application {
         return inputCommand.split(" ");
     }
 
-    private static void createCommand(String[] parsedCommand){
+    private static void createCommand(String[] parsedCommand, GitLog log){
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
                 rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                rankingCommand.execute();
+                rankingCommand.execute(log);
+                break;
             case "stats":
                 //
             default: //system commands
@@ -61,7 +61,7 @@ public class Application {
 
         String authRes = scanner.nextLine().trim().toLowerCase();
 
-        while (compareAuthRes(authRes) & !userAuthenticated){
+        while (compareAuthRes(authRes) && !userAuthenticated){
             System.out.println("Input access token: ");
             accessToken = scanner.nextLine().trim();
 
@@ -80,7 +80,7 @@ public class Application {
         gitLog.runGitLog(repoDetails[0]);
 
         System.out.println("Enter a command:");
-        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()));
+        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()), gitLog);
 
         scanner.close();
     }

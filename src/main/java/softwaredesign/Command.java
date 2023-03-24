@@ -2,5 +2,5 @@ package softwaredesign;
 
 public interface Command{
     void setArgs(String[] args);
-    void execute();
+    void execute(GitLog log);
 }

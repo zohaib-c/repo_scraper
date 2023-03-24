@@ -6,21 +6,39 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class GitLog extends Application{
     private LocalDateTime cloneDate;
-    private List<GitCommits> commits;
+    private List<GitCommit> commits;
 
     public GitLog(){
         cloneDate = LocalDateTime.now();
         this.commits = new ArrayList<>();
     }
 
+    public List<GitCommit> getCommits() {
+        return commits;
+    }
 
+    private GitCommit parseCommit(String log){
+        String[] parts = log.split("\t");
+        System.out.println(Arrays.toString(parts));
+
+        String sha = parts[0];
+        String author = parts[1];
+        String email = parts[2];
+        long unixDate = Long.parseLong(parts[3]);
+        String messageSubject = parts[4];
+        String messageBody = parts[5];
+
+        return new GitCommit(sha, author, email, unixDate, messageSubject, messageBody);
+    }
 
     public void runGitLog(String dir){
-        String command = "git log --pretty=format:\\\"%H\\t%an\\t%ae\\t%ad\\t%s\\t%P\\t%t\\t%D\\t%P\\t%ct\\t%ctz\\t%b---GITSTATS---%n%ai%d%cN%f%l%d%b\\\"";
+        String command = "git log --pretty=format:%H\t%an\t%ae\t%at\t%s\t%B";
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
 
         processBuilder.directory(new File(System.getProperty("user.dir") + "/" + dir));
@@ -33,7 +51,7 @@ public class GitLog extends Application{
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
+                    commits.add(parseCommit(line));
                 }
             } else {
                 throw new RuntimeException("git log failed with exit code: " + exitCode);
@@ -41,6 +59,5 @@ public class GitLog extends Application{
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
