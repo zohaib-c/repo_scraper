@@ -1,9 +1,6 @@
 package softwaredesign;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RankingContributorCommits extends Application implements Command{
     private String[] args;
@@ -35,7 +32,10 @@ public class RankingContributorCommits extends Application implements Command{
                 }
             }
 
-            for (HashMap.Entry<String, Integer> entry: uniqueAuthors.entrySet()){
+            TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
+            rankedAuthors.putAll(uniqueAuthors);
+
+            for (HashMap.Entry<String, Integer> entry: rankedAuthors.entrySet()){
                 System.out.println(entry.getKey() + ": "  + entry.getValue());
             }
         }

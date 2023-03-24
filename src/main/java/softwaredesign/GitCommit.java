@@ -7,7 +7,7 @@ public class GitCommit {
     private String author;
     private String email;
     private long unixDate;
-    private String messageSubject;
+    private String message;
     private String messageBody;
     private GitStats stats;
     private List<String> changedFiles;
@@ -32,13 +32,12 @@ public class GitCommit {
 //        this.commitType = commitType;
 //    }
 
-    public GitCommit(String sha, String author, String email, long unixDate, String messageSubject, String messageBody){
+    public GitCommit(String sha, String author, String email, long unixDate, String message){
         this.sha = sha;
         this.author = author;
         this.email = email;
         this.unixDate = unixDate;
-        this.messageSubject = messageSubject;
-        this.messageBody = messageBody;
+        this.message = message;
     }
 
     public String getAuthor() {
@@ -53,8 +52,8 @@ public class GitCommit {
         return unixDate;
     }
 
-    public String getMessageSubject() {
-        return messageSubject;
+    public String getMessage() {
+        return message;
     }
 
     public GitStats getStats() {
