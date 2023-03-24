@@ -17,6 +17,8 @@ public class GitLog extends Application{
         this.commits = new ArrayList<>();
     }
 
+
+
     public void runGitLog(String dir){
         String command = "git log --pretty=format:\\\"%H\\t%an\\t%ae\\t%ad\\t%s\\t%P\\t%t\\t%D\\t%P\\t%ct\\t%ctz\\t%b---GITSTATS---%n%ai%d%cN%f%l%d%b\\\"";
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
