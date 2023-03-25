@@ -1,7 +1,6 @@
 package softwaredesign;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -22,16 +21,19 @@ public class Application {
         return inputCommand.split(" ");
     }
 
-    private static void createCommand(String[] parsedCommand){
+    private static void createCommand(String[] parsedCommand, GitLog log, String repoName){
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
                 rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                rankingCommand.execute();
+                rankingCommand.execute(log);
+                break;
             case "stats":
                 //
-            default: //system commands
-                //
+            case "quit":
+                SystemCommands quit = new SystemCommands();
+                quit.quit(repoName);
+                break;
         }
     }
 
@@ -61,7 +63,7 @@ public class Application {
 
         String authRes = scanner.nextLine().trim().toLowerCase();
 
-        while (compareAuthRes(authRes) & !userAuthenticated){
+        while (compareAuthRes(authRes) && !userAuthenticated){
             System.out.println("Input access token: ");
             accessToken = scanner.nextLine().trim();
 
@@ -76,8 +78,11 @@ public class Application {
         System.out.println("Please enter a valid GitHub repository url you would like to clone:");
         String[] repoDetails = setRepo(scanner.nextLine().trim().toLowerCase());
 
+        GitLog gitLog = new GitLog();
+        gitLog.runGitLog(repoDetails[0]);
+
         System.out.println("Enter a command:");
-        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()));
+        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()), gitLog, repoDetails[0]);
 
         scanner.close();
     }

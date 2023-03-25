@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Ranking extends Application implements Command{
 
@@ -15,8 +17,7 @@ public class Ranking extends Application implements Command{
     }
 
     @Override
-    public void execute() {
-//        String command = "git log --pretty='%an' | sort | uniq -c | sort -nr";
+    public void execute(GitLog log) {
         if (args.length != 0){
             System.out.println("args != null\n");
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
@@ -25,31 +26,14 @@ public class Ranking extends Application implements Command{
                     //
                 case "contributor":
                     Command rankCont = new RankingContributor();
-                    rankCont.execute();
+                    rankCont.setArgs(Arrays.copyOfRange(args, 1, args.length));
+                    rankCont.execute(log);
+                    break;
             }
         }
         else {
-            String command = "git log --pretty='%an'";
-            ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
-
-            processBuilder.directory(new File("/Users/zohaibzaheer/Desktop/javaTest/First_Website"));
-
-            try {
-                Process process = processBuilder.start();
-                int exitCode = process.waitFor();
-
-                if (exitCode == 0) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
-                    }
-                } else {
-                    throw new RuntimeException("git log failed with exit code: " + exitCode);
-                }
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
+            List<GitCommit> repoCommits = log.getCommits();
+            //
         }
     }
 }

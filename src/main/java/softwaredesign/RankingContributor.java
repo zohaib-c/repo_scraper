@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
 
 public class RankingContributor extends Ranking implements Command{
 
@@ -15,27 +17,26 @@ public class RankingContributor extends Ranking implements Command{
     }
 
     @Override
-    public void execute() {
-        String command = "git log --pretty='%an'";
-        ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
-
-        processBuilder.directory(new File("/Users/zohaibzaheer/Desktop/javaTest/First_Website"));
-
-        try {
-            Process process = processBuilder.start();
-            int exitCode = process.waitFor();
-
-            if (exitCode == 0) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
-                }
-            } else {
-                throw new RuntimeException("git log failed with exit code: " + exitCode);
+    public void execute(GitLog log) {
+        if (args.length != 0){
+            System.out.println("args != null\n");
+            System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
+            switch (args[0]){
+                case "commits":
+                    Command rankContCommits = new RankingContributorCommits();
+                    rankContCommits.setArgs(Arrays.copyOfRange(args, 1, args.length));
+                    rankContCommits.execute(log);
+                case "time":
+                    //
+                case "weekend":
+                    //
+                case "weekday":
+                    //
             }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+        }
+        else {
+            List<GitCommit> repoCommits = log.getCommits();
+            //
         }
     }
 }
