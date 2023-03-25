@@ -21,7 +21,7 @@ public class Application {
         return inputCommand.split(" ");
     }
 
-    private static void createCommand(String[] parsedCommand, GitLog log){
+    private static void createCommand(String[] parsedCommand, GitLog log, String repoName){
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
@@ -30,8 +30,10 @@ public class Application {
                 break;
             case "stats":
                 //
-            default: //system commands
-                //
+            case "quit":
+                SystemCommands quit = new SystemCommands();
+                quit.quit(repoName);
+                break;
         }
     }
 
@@ -80,7 +82,7 @@ public class Application {
         gitLog.runGitLog(repoDetails[0]);
 
         System.out.println("Enter a command:");
-        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()), gitLog);
+        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()), gitLog, repoDetails[0]);
 
         scanner.close();
     }
