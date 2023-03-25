@@ -1,6 +1,8 @@
+package softwaredesign;
+
+import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
-import org.eclipse.egit.github.core.User;
 
 public class AuthRequest extends Application{
     private final String accessToken;

@@ -1,2 +1,12 @@
-softwaredesign/Main.java
- softwaredesign.Main
+softwaredesign/Repository.java
+ softwaredesign.Repository
+softwaredesign/AuthRequest.java
+ softwaredesign.AuthRequest
+softwaredesign/RankingContributor.java
+ softwaredesign.RankingContributor
+softwaredesign/Command.java
+ softwaredesign.Command
+softwaredesign/Application.java
+ softwaredesign.Application
+softwaredesign/Ranking.java
+ softwaredesign.Ranking
