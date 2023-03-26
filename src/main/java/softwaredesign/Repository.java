@@ -17,13 +17,12 @@ public class Repository extends Application{
 
             System.out.println(url);
         } catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
+            System.err.println("Invalid URL. Try again");
         }
 
     }
 
     public Boolean cloneRepo() {
-        Boolean validRepo = Boolean.FALSE;
 
         ProcessBuilder processBuilder = new ProcessBuilder("git", "clone", repositoryUrl);
         try {
@@ -32,13 +31,15 @@ public class Repository extends Application{
 
             if (exitCode == 0) {
                 System.out.println("Repository cloned successfully.\n");
-                validRepo = Boolean.TRUE;
+                return Boolean.TRUE;
             } else {
                 System.err.println("Failed to clone repository.\n");
+                return Boolean.FALSE;
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            return Boolean.FALSE;
         }
-    return validRepo;
     }
+
 }

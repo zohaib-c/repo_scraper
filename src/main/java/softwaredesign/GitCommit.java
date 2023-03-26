@@ -1,7 +1,5 @@
 package softwaredesign;
 
-import java.util.List;
-
 public class GitCommit {
     private final String sha;
     private final String author;

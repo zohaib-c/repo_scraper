@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
 public class GitLog extends Application{
     private LocalDateTime cloneDate;
@@ -35,7 +33,8 @@ public class GitLog extends Application{
         return new GitCommit(sha, author, email, unixDate, messageSubject);
     }
 
-    public void runGitLog(String dir){
+    public Boolean runGitLog(String dir){
+        Boolean logSuccesful = Boolean.FALSE;
         String command = "git log --pretty=format:%H\t%an\t%ae\t%at\t%s";
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
 
@@ -46,6 +45,7 @@ public class GitLog extends Application{
             int exitCode = process.waitFor();
 
             if (exitCode == 0) {
+                logSuccesful = Boolean.TRUE;
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -58,5 +58,6 @@ public class GitLog extends Application{
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    return logSuccesful;
     }
 }

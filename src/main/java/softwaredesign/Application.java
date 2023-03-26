@@ -1,27 +1,62 @@
 package softwaredesign;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 //https://github.com/zohaib-c/first_website.git
 //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
-//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
 
 public class Application {
 
-    private static String[] setRepo(String url){
-        Repository newRepo = new Repository(url);
-        newRepo.cloneRepo();
+    private static void authenticateUser(Scanner scanner){
+        System.out.println("If you would like to clone a private repository, you will need to provide us with a Private Access Token.\n" +
+                "Type 'yes' if you would to authenticate, otherwise type 'no'");
+        String authRes = scanner.nextLine().trim().toLowerCase();
+        Boolean isAuthenticated = Boolean.FALSE;
 
-        return new String[]{newRepo.repoName, newRepo.repoOwner};
+        try {
+            while (authRes.equals("yes") && !isAuthenticated) {
+                System.out.println("Input access token: ");
+                String accessToken = scanner.nextLine().trim();
+
+                AuthRequest req = new AuthRequest(accessToken);
+                isAuthenticated = req.authenticate();
+
+                if (!isAuthenticated) {
+                    System.out.println("Would you like to try again? Yes/No");
+                    authRes = scanner.nextLine().trim().toLowerCase();
+                }
+            }
+        } catch (Exception e){
+            System.err.println("DEBUG issue with authenticating in Application");
+            e.printStackTrace();
+        }
     }
 
-    private static String[] parseCommand(String inputCommand){
-        return inputCommand.split(" ");
+    private static String setRepo(Scanner scanner){
+        Boolean isCloned = Boolean.FALSE;
+        String repoName = "";
+
+        try {
+            while (!isCloned) {
+                System.out.println("Please enter a valid GitHub repository url you would like to clone:");
+                String url = scanner.nextLine().trim().toLowerCase();
+                Repository newRepo = new Repository(url);
+                isCloned = newRepo.cloneRepo();
+
+                repoName = newRepo.repoName;
+            }
+        }
+        catch (Exception e){
+            System.err.println("DEBUG issue with with cloning repo in Application");
+            e.printStackTrace();
+        }
+
+        return repoName;
     }
 
-    private static void createCommand(String[] parsedCommand, GitLog log, String repoName){
+
+    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName){
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
@@ -34,55 +69,39 @@ public class Application {
                 SystemCommands quit = new SystemCommands();
                 quit.quit(repoName);
                 break;
+            default:
+                System.err.println("Command not recognised. Enter help for a list of valid commands.");
         }
     }
 
-    private static Boolean compareAuthRes(String res){
-        if (Objects.equals(res, "yes")){
-            return Boolean.TRUE;
-        }
-        return Boolean.FALSE;
-    }
 
-    private static Boolean createAuthRequest(String accessToken){
-        AuthRequest req = new AuthRequest(accessToken);
-        req.authenticate();
-        return req.userAuthenticated;
+    private static void mainCommandLoop(Scanner scanner, GitLog gitLog, String repoName){
+        while (true) {
+            try {
+                System.out.println("Enter a command:");
+                executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName);
+            }
+            catch (Exception e){
+                System.err.println("DEBUG error taking command input");
+                e.printStackTrace();
+                break;
+            }
+        }
     }
 
     public static void main(String[] args){
-        Boolean userAuthenticated = Boolean.FALSE;
-        String accessToken;
-
         System.out.println("Welcome to the GitHub miner! \n");
-
-        System.out.println("If you would like to clone a private repository, you will need to provide us with a Private Access Token.\n" +
-                "Type 'yes' if you would to authenticate, otherwise type 'no'");
 
         Scanner scanner = new Scanner(System.in);
 
-        String authRes = scanner.nextLine().trim().toLowerCase();
+        authenticateUser(scanner);
 
-        while (compareAuthRes(authRes) && !userAuthenticated){
-            System.out.println("Input access token: ");
-            accessToken = scanner.nextLine().trim();
-
-            userAuthenticated = createAuthRequest(accessToken);
-
-            if (!userAuthenticated){
-                System.out.println("Would you like to try again? Yes/No");
-                authRes = scanner.nextLine().trim().toLowerCase();
-            }
-        }
-
-        System.out.println("Please enter a valid GitHub repository url you would like to clone:");
-        String[] repoDetails = setRepo(scanner.nextLine().trim().toLowerCase());
+        String repoName = setRepo(scanner);
 
         GitLog gitLog = new GitLog();
-        gitLog.runGitLog(repoDetails[0]);
+        Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log
 
-        System.out.println("Enter a command:");
-        createCommand(parseCommand(scanner.nextLine().trim().toLowerCase()), gitLog, repoDetails[0]);
+        mainCommandLoop(scanner, gitLog, repoName);
 
         scanner.close();
     }
