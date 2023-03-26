@@ -56,12 +56,14 @@ public class Application {
     }
 
 
-    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName){
+    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName, History history){
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
                 rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                rankingCommand.execute(log);
+                if (rankingCommand.execute(log)){
+                    history.push(rankingCommand);
+                }
                 break;
             case "stats":
                 //
@@ -69,17 +71,21 @@ public class Application {
                 SystemCommands quit = new SystemCommands();
                 quit.quit(repoName);
                 break;
+            case "history":
+                SystemCommands printHistory = new SystemCommands();
+                printHistory.history(history);
+                break;
             default:
                 System.err.println("Command not recognised. Enter help for a list of valid commands.");
         }
     }
 
 
-    private static void mainCommandLoop(Scanner scanner, GitLog gitLog, String repoName){
+    private static void mainCommandLoop(Scanner scanner, GitLog gitLog, String repoName, History history){
         while (true) {
             try {
                 System.out.println("Enter a command:");
-                executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName);
+                executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName, history);
             }
             catch (Exception e){
                 System.err.println("DEBUG error taking command input");
@@ -90,6 +96,8 @@ public class Application {
     }
 
     public static void main(String[] args){
+        History history = new History();
+
         System.out.println("Welcome to the GitHub miner! \n");
 
         Scanner scanner = new Scanner(System.in);
@@ -101,7 +109,7 @@ public class Application {
         GitLog gitLog = new GitLog();
         Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log
 
-        mainCommandLoop(scanner, gitLog, repoName);
+        mainCommandLoop(scanner, gitLog, repoName, history);
 
         scanner.close();
     }
