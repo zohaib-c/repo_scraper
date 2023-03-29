@@ -14,15 +14,7 @@ public class RankingContributorTime extends Application implements Command {
 
         @Override
         public int compare(String a, String b) {
-            if (uniqueAuthors.get(a).compareTo(uniqueAuthors.get(b)) >= 0){
-                return 1;
-            }
-            else if (uniqueAuthors.get(a).compareTo(uniqueAuthors.get(b)) <= 0){
-                return -1;
-            }
-            else{
-                return 0;
-            }
+            return Integer.compare(uniqueAuthors.get(a).compareTo(uniqueAuthors.get(b)), 0);
         }
     }
 
@@ -60,7 +52,7 @@ public class RankingContributorTime extends Application implements Command {
 
             for (int i = 0; i < authors.size(); i++){
                 if (!uniqueAuthors.containsKey(authors.get(i))){
-                    uniqueAuthors.put(authors.get(i), dates.get(i)); //sums number of commits
+                    uniqueAuthors.put(authors.get(i), dates.get(i));
                 }
             }
 

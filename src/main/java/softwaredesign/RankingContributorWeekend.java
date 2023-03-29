@@ -2,8 +2,7 @@ package softwaredesign;
 
 import java.util.*;
 
-public class RankingContributorCommits extends Application implements Command{
-
+public class RankingContributorWeekend extends Application implements Command {
     static class MapValueSorter implements Comparator<String> {
         HashMap<String, Integer> uniqueAuthors;
 
@@ -16,6 +15,7 @@ public class RankingContributorCommits extends Application implements Command{
             return uniqueAuthors.get(b).compareTo(uniqueAuthors.get(a));
         }
     }
+
     private String[] args;
 
     @Override
@@ -25,33 +25,45 @@ public class RankingContributorCommits extends Application implements Command{
 
     @Override
     public Boolean execute(GitLog log) {
-        if (args.length !=0){
+        if (args.length != 0) {
             System.err.println("DEBUG: There should be no args here");
             return Boolean.FALSE;
-        }
-        else{
+        } else {
             List<GitCommit> repoCommits = log.getCommits();
+
             List<String> authors = new ArrayList<>();
             for (GitCommit commit: repoCommits){
                 authors.add(commit.getAuthor());
             }
 
+            List<Integer> dates = new ArrayList<>();
+
+            for (GitCommit commit: repoCommits){
+                long unixDate = commit.getUnixDate();;
+                Date date = new java.util.Date(unixDate * 1000L);
+                dates.add(date.getDay());
+            }
+
             HashMap<String, Integer> uniqueAuthors = new HashMap<>();
-            for (String author: authors){
-                if (uniqueAuthors.containsKey(author)){
-                    uniqueAuthors.put(author, uniqueAuthors.get(author)+1);
-                }
-                else{
-                    uniqueAuthors.put(author, 1);
+
+
+            for (int i = 0; i < dates.size(); i++){
+                if(dates.get(i) == 6 || dates.get(i) == 0){
+                    if (uniqueAuthors.containsKey(authors.get(i))){
+                        uniqueAuthors.put(authors.get(i), uniqueAuthors.get(authors.get(i))+1);
+                    }
+                    else{
+                        uniqueAuthors.put(authors.get(i), 1);
+                    }
                 }
             }
 
             TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
-            System.out.println("\n List of contributors ranked by commits: ");
+            System.out.println("\nList of contributors ranked by who contributed most on the weekends: ");
             for (HashMap.Entry<String, Integer> entry: rankedAuthors.entrySet()){
-                System.out.println(entry.getKey() + ": "  + entry.getValue());
+                System.out.println(entry.getKey() + " - Number of commits: "  + entry.getValue());
             }
             System.out.println("\n");
 
