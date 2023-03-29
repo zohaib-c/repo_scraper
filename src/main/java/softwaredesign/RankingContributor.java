@@ -27,9 +27,13 @@ public class RankingContributor extends Ranking implements Command{
                     rankContTime.setArgs(Arrays.copyOfRange(args, 1, args.length));
                     return rankContTime.execute(log);
                 case "weekend":
-                    //
+                    Command rankContWeekend = new RankingContributorWeekend();
+                    rankContWeekend.setArgs(Arrays.copyOfRange(args, 1, args.length));
+                    return rankContWeekend.execute(log);
                 case "weekday":
-                    //
+                    Command rankContWeekday = new RankingContributorWeekday();
+                    rankContWeekday.setArgs(Arrays.copyOfRange(args, 1, args.length));
+                    return rankContWeekday.execute(log);
             }
         }
         else {
