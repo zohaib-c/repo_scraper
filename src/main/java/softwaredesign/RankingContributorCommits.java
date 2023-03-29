@@ -57,7 +57,7 @@ public class RankingContributorCommits extends Application implements Command{
             TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
-            System.out.println("\n List of contributors ranked by commits: ");
+            System.out.println("\nList of contributors ranked by commits: ");
             for (HashMap.Entry<String, Integer> entry: rankedAuthors.entrySet()){
                 System.out.println(entry.getKey() + ": "  + entry.getValue());
             }

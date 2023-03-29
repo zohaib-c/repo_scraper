@@ -3,15 +3,26 @@ package softwaredesign;
 import java.util.Arrays;
 import java.util.Scanner;
 
-//https://github.com/zohaib-c/first_website.git
-//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
+//small size test repo: https://github.com/zohaib-c/first_website.git
+//medium size test repo: https://github.com/fauxpilot/fauxpilot.git
 
 public class Application {
+
+    private static String takeValidAuthResponse(Scanner scanner){
+        String authRes = scanner.nextLine().trim().toLowerCase();
+        while (!authRes.equals("yes") && !authRes.equals("no")){
+            System.err.println("'" + authRes + "' is not a valid response.");
+            System.out.println("Please enter 'yes' or 'no'");
+            authRes = scanner.nextLine().trim().toLowerCase();
+        }
+
+        return authRes;
+    }
 
     private static void authenticateUser(Scanner scanner){
         System.out.println("If you would like to clone a private repository, you will need to provide us with a Private Access Token.\n" +
                 "Type 'yes' if you would to authenticate, otherwise type 'no'");
-        String authRes = scanner.nextLine().trim().toLowerCase();
+        String authRes = takeValidAuthResponse(scanner);
         Boolean isAuthenticated = Boolean.FALSE;
 
         try {
@@ -23,11 +34,11 @@ public class Application {
                 isAuthenticated = req.authenticate();
 
                 if (!isAuthenticated) {
-                    System.out.println("Would you like to try again? Yes/No");
-                    authRes = scanner.nextLine().trim().toLowerCase();
+                    System.out.println("Would you like to try again? yes/no");
+                    authRes = takeValidAuthResponse(scanner);
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println("DEBUG issue with authenticating in Application");
             e.printStackTrace();
         }
