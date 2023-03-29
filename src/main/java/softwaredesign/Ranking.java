@@ -17,7 +17,7 @@ public class Ranking extends Application implements Command{
     }
 
     @Override
-    public void execute(GitLog log) {
+    public Boolean execute(GitLog log) {
         if (args.length != 0){
             System.out.println("args != null\n");
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
@@ -32,8 +32,8 @@ public class Ranking extends Application implements Command{
             }
         }
         else {
-            List<GitCommit> repoCommits = log.getCommits();
             //
         }
+        return Boolean.FALSE;
     }
 }

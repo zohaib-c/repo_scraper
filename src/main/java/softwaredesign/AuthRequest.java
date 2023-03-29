@@ -6,13 +6,12 @@ import org.eclipse.egit.github.core.service.UserService;
 
 public class AuthRequest extends Application{
     private final String accessToken;
-    public Boolean userAuthenticated = Boolean.FALSE;
 
     public AuthRequest(String accessToken){
         this.accessToken = accessToken;
     }
 
-    public void authenticate(){
+    public Boolean authenticate(){
         GitHubClient client = new GitHubClient();
         client.setOAuth2Token(accessToken);
 
@@ -20,10 +19,11 @@ public class AuthRequest extends Application{
 
         try {
             User user = userService.getUser();
-            userAuthenticated = Boolean.TRUE;
             System.out.println("Authenticated as: " + user.getLogin());
+            return Boolean.TRUE;
         } catch (Exception e) {
             System.err.println("Error retrieving user information: Incorrect information");
+            return Boolean.FALSE;
         }
     }
 }

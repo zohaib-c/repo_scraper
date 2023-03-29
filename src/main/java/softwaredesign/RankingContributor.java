@@ -1,9 +1,5 @@
 package softwaredesign;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +13,7 @@ public class RankingContributor extends Ranking implements Command{
     }
 
     @Override
-    public void execute(GitLog log) {
+    public Boolean execute(GitLog log) {
         if (args.length != 0){
             System.out.println("args != null\n");
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
@@ -25,7 +21,7 @@ public class RankingContributor extends Ranking implements Command{
                 case "commits":
                     Command rankContCommits = new RankingContributorCommits();
                     rankContCommits.setArgs(Arrays.copyOfRange(args, 1, args.length));
-                    rankContCommits.execute(log);
+                    return rankContCommits.execute(log);
                 case "time":
                     //
                 case "weekend":
@@ -35,8 +31,8 @@ public class RankingContributor extends Ranking implements Command{
             }
         }
         else {
-            List<GitCommit> repoCommits = log.getCommits();
             //
         }
+        return Boolean.FALSE;
     }
 }
