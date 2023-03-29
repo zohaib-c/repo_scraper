@@ -67,6 +67,11 @@ public class Application {
                 break;
             case "stats":
                 //
+
+            case "help":
+                SystemCommands help = new SystemCommands();
+                help.help();
+                break;
             case "quit":
                 SystemCommands quit = new SystemCommands();
                 quit.quit(repoName);
