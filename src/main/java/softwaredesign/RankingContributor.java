@@ -23,7 +23,9 @@ public class RankingContributor extends Ranking implements Command{
                     rankContCommits.setArgs(Arrays.copyOfRange(args, 1, args.length));
                     return rankContCommits.execute(log);
                 case "time":
-                    //
+                    Command rankContTime = new RankingContributorTime();
+                    rankContTime.setArgs(Arrays.copyOfRange(args, 1, args.length));
+                    return rankContTime.execute(log);
                 case "weekend":
                     //
                 case "weekday":

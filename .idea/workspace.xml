@@ -5,37 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="first">
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/AuthRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Command.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Repository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Asg2 - SD_61.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Assignment 2.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libs/gson-2.2.2-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libs/gson-2.2.2-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libs/gson-2.2.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libs/org.eclipse.egit.github.core-2.1.5-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libs/org.eclipse.egit.github.core-2.1.5-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libs/org.eclipse.egit.github.core-2.1.5.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorTime.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Command.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/GitCommit.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/GitCommit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/GitLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/GitLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributor.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/SystemCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/SystemCommands.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/AuthRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/AuthRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Repository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +39,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -71,17 +68,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.softwaredesign.Application">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Application" />
@@ -126,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679441199030</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first">
+      <created>1679752198833</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679752198833</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
