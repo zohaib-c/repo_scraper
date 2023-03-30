@@ -3,7 +3,7 @@ package softwaredesign;
 import java.util.*;
 import java.text.*;
 
-public class RankingContributorTime extends Application implements Command {
+public class RankingContributorTime extends RankingContributor implements Command {
 
     static class MapValueSorter implements Comparator<String> {
         HashMap<String, Date> uniqueAuthors;
@@ -61,9 +61,13 @@ public class RankingContributorTime extends Application implements Command {
 
             SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
-            System.out.println("\nList of contributors ranked by who is in the project for the longest time: ");
+            Integer counter = 0;
+
+            System.out.println("\nList of top " + limit + " contributors ranked by who is in the project for the longest time: ");
             for (HashMap.Entry<String, Date> entry: rankedAuthors.entrySet()){
-                System.out.println(entry.getKey() + " - First commit: "  + sdformat.format(entry.getValue()));
+                if (counter == limit) break;
+                System.out.println(counter + 1 + ". " + entry.getKey() + " - First commit: "  + sdformat.format(entry.getValue()));
+                counter++;
             }
             System.out.println("\n");
 

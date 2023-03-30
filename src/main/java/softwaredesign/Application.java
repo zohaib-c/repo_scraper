@@ -85,7 +85,12 @@ public class Application {
                 restart.restart();
                 break;
             case "stats":
-                //
+                Command statsCmd = new Stats();
+                statsCmd.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
+                if (statsCmd.execute(log)) {
+                    history.push(statsCmd);
+                }
+                break;
             case "help":
                 SystemCommands help = new SystemCommands();
                 help.help();
@@ -133,6 +138,7 @@ public class Application {
         GitLog gitLog = new GitLog();
         Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log
 
+        System.out.println("Type 'help' to see the list of commands.");
         mainCommandLoop(scanner, gitLog, repoName, history);
 
         scanner.close();
