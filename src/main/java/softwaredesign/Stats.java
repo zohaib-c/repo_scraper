@@ -25,6 +25,7 @@ public class Stats extends Application implements Command {
 
     @Override
     public Boolean execute(GitLog log) {
+        System.out.println();
         if (args.length != 0){
             System.out.println("args != null\n");
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
@@ -43,9 +44,10 @@ public class Stats extends Application implements Command {
             }
         }
         else {
-            System.out.println("pure stats cmd");
+            System.out.println("COMMITS");
             Command statsCom = new StatsCommits();
             statsCom.execute(log);
+            System.out.println("\nCONTRIBUTORS");
             Command statsCont = new StatsContributors();
             statsCont.execute(log);
         }
