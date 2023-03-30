@@ -2,7 +2,7 @@ package softwaredesign;
 
 import java.util.*;
 
-public class RankingContributorWeekend extends Application implements Command {
+public class RankingContributorWeekend extends RankingContributor implements Command {
     static class MapValueSorter implements Comparator<String> {
         HashMap<String, Integer> uniqueAuthors;
 
@@ -58,12 +58,17 @@ public class RankingContributorWeekend extends Application implements Command {
                 }
             }
 
+
             TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
+            Integer counter = 0;
+
             System.out.println("\nList of contributors ranked by who contributed most on the weekends: ");
             for (HashMap.Entry<String, Integer> entry: rankedAuthors.entrySet()){
-                System.out.println(entry.getKey() + " - Number of commits: "  + entry.getValue());
+                if(counter == limit) break;
+                System.out.println(counter + 1 + ". " + entry.getKey() + " - Number of commits: "  + entry.getValue());
+                counter++;
             }
             System.out.println("\n");
 

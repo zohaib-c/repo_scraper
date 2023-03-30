@@ -3,7 +3,7 @@ package softwaredesign;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RankingCommitRecent extends Application implements Command{
+public class RankingCommitRecent extends RankingCommit implements Command{
     private String[] args;
 
     @Override
@@ -20,11 +20,11 @@ public class RankingCommitRecent extends Application implements Command{
         else{
             List<GitCommit> repoCommits = log.getCommits();
 
-            Integer limit = 15;
+            //Integer limit = 15;
 
             SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
-            System.out.println("\nList of 15 most recent commits: ");
+            System.out.println("\nList of " + limit + "most recent commits: ");
 
             for (int i = 0; i < limit; i++) {
                 GitCommit commit = repoCommits.get(i);
