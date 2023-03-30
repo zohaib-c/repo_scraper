@@ -2,7 +2,8 @@ package softwaredesign;
 
 import java.util.*;
 
-public class RankingContributorCommits extends Application implements Command{
+public class RankingContributorCommits extends RankingContributor implements Command{
+
 
     static class MapValueSorter implements Comparator<String> {
         HashMap<String, Integer> uniqueAuthors;
@@ -49,9 +50,13 @@ public class RankingContributorCommits extends Application implements Command{
             TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
-            System.out.println("\nList of contributors ranked by commits: ");
+            System.out.println("\nList of top " + limit + " contributors ranked by number of commits made: ");
+
+            Integer counter = 0;
             for (HashMap.Entry<String, Integer> entry: rankedAuthors.entrySet()){
-                System.out.println(entry.getKey() + ": "  + entry.getValue());
+                if (counter == limit) break;
+                System.out.println(counter + 1 + ". " + entry.getKey() + ": "  + entry.getValue());
+                counter++;
             }
             System.out.println("\n");
 
