@@ -1,5 +1,6 @@
 package softwaredesign;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -79,6 +80,10 @@ public class Application {
                     history.push(rankingCommand);
                 }
                 break;
+            case "restart":
+                SystemCommands restart = new SystemCommands();
+                restart.restart();
+                break;
             case "stats":
                 Command statsCmd = new Stats();
                 statsCmd.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
@@ -120,6 +125,7 @@ public class Application {
 
     public static void main(String[] args){
         History history = new History();
+
 
         System.out.println("Welcome to the GitHub miner! \n");
 

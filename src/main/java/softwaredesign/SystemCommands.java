@@ -1,6 +1,14 @@
 package softwaredesign;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SystemCommands {
 
@@ -31,10 +39,6 @@ public class SystemCommands {
         }
 
         System.exit(0);
-    }
-
-    public void restart(){
-        //
     }
 
     public void help(){
@@ -83,7 +87,33 @@ public class SystemCommands {
         //
     }
 
-    public void printReport(){
-        //
+    public void restart() {
+        try {
+            String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+            List<String> command = new ArrayList<>();
+            command.add(javaBin);
+
+            // Add JVM arguments
+            List<String> jvmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+            command.addAll(jvmArguments);
+
+            // Add classpath
+            command.add("-cp");
+            command.add(System.getProperty("java.class.path"));
+
+            command.add(Application.class.getName());
+            ProcessBuilder builder = new ProcessBuilder(command);
+
+            builder.redirectInput(ProcessBuilder.Redirect.INHERIT);
+            builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            builder.redirectError(ProcessBuilder.Redirect.INHERIT);
+
+            builder.start();
+            System.exit(0);
+
+        } catch (IOException e) {
+            System.err.println("Failed to restart the application: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
