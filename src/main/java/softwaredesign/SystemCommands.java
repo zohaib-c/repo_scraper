@@ -1,16 +1,76 @@
 package softwaredesign;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import java.io.*;
+import java.nio.file.*;
+import java.text.SimpleDateFormat;
+import java.awt.Desktop;
 
 
 public class SystemCommands {
+
+    private PrintStream redirectOutput(String repoName) throws IOException {
+        String fileName = "report.txt";
+        Path path = Paths.get(fileName);
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+        } else {
+            // Clear the file contents if it exists
+            Files.write(path, new byte[0]);
+        }
+
+        PrintStream outReference = System.out;
+
+        FileOutputStream fos = new FileOutputStream(fileName, false); // Append mode
+        PrintStream fileOut = new PrintStream(fos);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        String currentDateAndTime = formatter.format(new Date());
+        fileOut.println("This report was created on " + currentDateAndTime + " and is based on the repository " + repoName + ".");
+        fileOut.println();
+
+        System.setOut(fileOut); // Redirect the standard output stream to the file
+
+        return outReference;
+    }
+
+    private static List<String[]> getReportCommands() {
+        System.out.println("Please enter a list of commands you want included in the report. Enter 'quit' to finish.");
+        List<String[]> reportCommands = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            input = scanner.nextLine();
+            if (input.equalsIgnoreCase("quit")) {
+                break;
+            }
+            String[] commandParts = input.split(" ");
+            reportCommands.add(commandParts);
+        }
+
+        return reportCommands;
+    }
+
+        public static void openReport() throws IOException {
+            String fileName = "report.txt";
+            if (!Desktop.isDesktopSupported()) {
+                throw new UnsupportedOperationException("Desktop is not supported on this platform.");
+            }
+
+            Desktop desktop = Desktop.getDesktop();
+
+            if (!desktop.isSupported(Desktop.Action.OPEN)) {
+                throw new UnsupportedOperationException("The open action is not supported on this platform.");
+            }
+
+            File file = new File(fileName);
+            desktop.open(file);
+        }
+
 
     private static void helperDelRepo(File directory){
         File[] files = directory.listFiles();
@@ -71,16 +131,52 @@ public class SystemCommands {
                 "Available system commands:\n" +
                 "  history \t\t\t\t- prints history of all commands\n" +
                 "  help \t\t\t\t\t- prints possible commands\n" +
+                "  report \t\t\t\t- create a report as a text file with your desired commands\n" +
                 "  restart \t\t\t\t- restarts the program\n" +
                 "  quit \t\t\t\t\t- quits the program\n" +
                 " \n" +
                 "Examples:\n" +
                 "  $ ranking commits\n" +
-                "  $ rankin contributor commits\n" +
+                "  $ ranking contributor commits\n" +
                 "  $ stats commits\n" +
                 "  $ ranking\n" +
                 "  $ stats contributor\n" +
                 "  $ history\n");
+    }
+
+    public void report(GitLog log,String repoName){
+
+        List<String[]> reportCommands = getReportCommands();
+        PrintStream originalOutput = null;
+
+        try {
+            originalOutput = redirectOutput(repoName);
+        } catch (IOException e) {
+            System.err.println("Failed to redirect output: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        for(String[] command : reportCommands) {
+            switch (command[0]) {
+                case "ranking":
+                    Command rankingCommand = new Ranking();
+                    rankingCommand.setArgs(Arrays.copyOfRange(command, 1, command.length));
+                    rankingCommand.execute(log);
+                    break;
+                case "stats":
+                    break;
+                default:
+                    System.err.println("Your command " + command[0] + " cannot be recognized!");
+            }
+        }
+
+        System.setOut(originalOutput);
+
+        try{
+            openReport();
+        } catch (IOException e) {
+            System.err.println("Error opening the report.txt file: " + e.getMessage());
+        }
     }
 
     public void history(History history){

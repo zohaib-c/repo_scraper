@@ -71,7 +71,7 @@ public class Application {
     }
 
 
-    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName, History history){
+    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName, History history){ //What is repoName used for? =================
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
@@ -85,7 +85,7 @@ public class Application {
                 restart.restart();
                 break;
             case "stats":
-                //
+                break;
             case "help":
                 SystemCommands help = new SystemCommands();
                 help.help();
@@ -97,6 +97,10 @@ public class Application {
             case "history":
                 SystemCommands printHistory = new SystemCommands();
                 printHistory.history(history);
+                break;
+            case "report":
+                SystemCommands report = new SystemCommands();
+                report.report(log,repoName);
                 break;
             default:
                 System.err.println("Command not recognised. Enter help for a list of valid commands.");
@@ -120,7 +124,6 @@ public class Application {
 
     public static void main(String[] args){
         History history = new History();
-
 
         System.out.println("Welcome to the GitHub miner! \n");
 
