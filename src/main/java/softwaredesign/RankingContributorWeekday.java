@@ -93,27 +93,57 @@ public class RankingContributorWeekday extends Application implements Command{
             rankedFriAuthors.putAll(friAuthors);
 
             System.out.println("\nList of contributors ranked by who contributed most on the given weekdays: ");
-            System.out.println("\nMondays: ");
-            for (HashMap.Entry<String, Integer> entry: rankedMonAuthors.entrySet()){
-                System.out.println(entry.getKey() + " : "  + entry.getValue());
+
+            if(rankedMonAuthors.size() == 0){
+                System.out.println("No one contributed on Mondays");
             }
-            System.out.println("\nTuesdays: ");
-            for (HashMap.Entry<String, Integer> entry: rankedTueAuthors.entrySet()){
-                System.out.println(entry.getKey() + " : "  + entry.getValue());
+            else {
+                System.out.println("\nMondays: ");
+                for (HashMap.Entry<String, Integer> entry: rankedMonAuthors.entrySet()){
+                    System.out.println(entry.getKey() + " : "  + entry.getValue());
+                }
             }
-            System.out.println("\nWednesdays: ");
-            for (HashMap.Entry<String, Integer> entry: rankedWedAuthors.entrySet()){
-                System.out.println(entry.getKey() + " : "  + entry.getValue());
+
+            if(rankedTueAuthors.size() == 0){
+                System.out.println("No one contributed on Tuesdays");
             }
-            System.out.println("\nThursdays: ");
-            for (HashMap.Entry<String, Integer> entry: rankedThuAuthors.entrySet()){
-                System.out.println(entry.getKey() + " : "  + entry.getValue());
+            else {
+                System.out.println("\nTuesdays: ");
+                for (HashMap.Entry<String, Integer> entry: rankedTueAuthors.entrySet()){
+                    System.out.println(entry.getKey() + " : "  + entry.getValue());
+                }
             }
-            System.out.println("\nFridays: ");
-            for (HashMap.Entry<String, Integer> entry: rankedFriAuthors.entrySet()){
-                System.out.println(entry.getKey() + " : "  + entry.getValue());
+
+            if(rankedWedAuthors.size() == 0){
+                System.out.println("No one contributed on Wednesdays");
             }
-            System.out.println("\n");
+            else {
+                System.out.println("\nWednesdays: ");
+                for (HashMap.Entry<String, Integer> entry: rankedWedAuthors.entrySet()){
+                    System.out.println(entry.getKey() + " : "  + entry.getValue());
+                }
+            }
+
+            if(rankedThuAuthors.size() == 0){
+                System.out.println("No one contributed on Thursdays");
+            }
+            else {
+                System.out.println("\nThursdays: ");
+                for (HashMap.Entry<String, Integer> entry: rankedThuAuthors.entrySet()){
+                    System.out.println(entry.getKey() + " : "  + entry.getValue());
+                }
+            }
+
+            if(rankedFriAuthors.size() == 0){
+                System.out.println("No one contributed on Fridays");
+            }
+            else {
+                System.out.println("\nFridays: ");
+                for (HashMap.Entry<String, Integer> entry: rankedFriAuthors.entrySet()){
+                    System.out.println(entry.getKey() + " : "  + entry.getValue());
+                }
+                System.out.println("\n");
+            }
 
             return Boolean.TRUE;
         }
