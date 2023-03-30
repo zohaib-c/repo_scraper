@@ -4,16 +4,16 @@ softwaredesign/AuthRequest.java
  softwaredesign.AuthRequest
 softwaredesign/GitCommit.java
  softwaredesign.GitCommit
-softwaredesign/Application.java
- softwaredesign.Application
+softwaredesign/RankingContributorTime.java
+ softwaredesign.RankingContributorTime
+ softwaredesign.RankingContributorTime$MapValueSorter
 softwaredesign/RankingContributorCommits.java
  softwaredesign.RankingContributorCommits
  softwaredesign.RankingContributorCommits$MapValueSorter
 softwaredesign/Repository.java
  softwaredesign.Repository
-softwaredesign/RankingContributorWeekend.java
- softwaredesign.RankingContributorWeekend
- softwaredesign.RankingContributorWeekend$MapValueSorter
+softwaredesign/SystemCommands.java
+ softwaredesign.SystemCommands
 softwaredesign/GitLog.java
  softwaredesign.GitLog
 softwaredesign/History.java
@@ -23,12 +23,18 @@ softwaredesign/Command.java
 softwaredesign/RankingContributorWeekday.java
  softwaredesign.RankingContributorWeekday
  softwaredesign.RankingContributorWeekday$MapValueSorter
-softwaredesign/SystemCommands.java
- softwaredesign.SystemCommands
-softwaredesign/RankingContributorTime.java
- softwaredesign.RankingContributorTime
- softwaredesign.RankingContributorTime$MapValueSorter
-softwaredesign/RankingContributor.java
- softwaredesign.RankingContributor
+softwaredesign/RankingContributorWeekend.java
+ softwaredesign.RankingContributorWeekend
+ softwaredesign.RankingContributorWeekend$MapValueSorter
 softwaredesign/Ranking.java
  softwaredesign.Ranking
+softwaredesign/RankingContributor.java
+ softwaredesign.RankingContributor
+softwaredesign/Application.java
+ softwaredesign.Application
+softwaredesign/RankingCommitRecent.java
+ softwaredesign.RankingCommitRecent
+softwaredesign/RankingCommitChurn.java
+ softwaredesign.RankingCommitChurn
+softwaredesign/RankingCommit.java
+ softwaredesign.RankingCommit

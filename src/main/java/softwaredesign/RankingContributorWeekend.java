@@ -16,12 +16,12 @@ public class RankingContributorWeekend extends Application implements Command {
         }
     }
 
-    private String[] args;
-
     @Override
     public void setArgs(String[] args) {
         this.args = args;
     }
+
+    private String[] args;
 
     @Override
     public Boolean execute(GitLog log) {
