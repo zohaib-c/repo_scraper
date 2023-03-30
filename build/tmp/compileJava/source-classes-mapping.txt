@@ -2,38 +2,38 @@ softwaredesign/GitStats.java
  softwaredesign.GitStats
 softwaredesign/AuthRequest.java
  softwaredesign.AuthRequest
+softwaredesign/Repository.java
+ softwaredesign.Repository
 softwaredesign/GitCommit.java
  softwaredesign.GitCommit
-softwaredesign/RankingContributorTime.java
- softwaredesign.RankingContributorTime
- softwaredesign.RankingContributorTime$MapValueSorter
+softwaredesign/Command.java
+ softwaredesign.Command
+softwaredesign/SystemCommands.java
+ softwaredesign.SystemCommands
+softwaredesign/History.java
+ softwaredesign.History
+softwaredesign/GitLog.java
+ softwaredesign.GitLog
 softwaredesign/RankingContributorCommits.java
  softwaredesign.RankingContributorCommits
  softwaredesign.RankingContributorCommits$MapValueSorter
-softwaredesign/Repository.java
- softwaredesign.Repository
-softwaredesign/SystemCommands.java
- softwaredesign.SystemCommands
-softwaredesign/GitLog.java
- softwaredesign.GitLog
-softwaredesign/History.java
- softwaredesign.History
-softwaredesign/Command.java
- softwaredesign.Command
-softwaredesign/RankingContributorWeekday.java
- softwaredesign.RankingContributorWeekday
- softwaredesign.RankingContributorWeekday$MapValueSorter
 softwaredesign/RankingContributorWeekend.java
  softwaredesign.RankingContributorWeekend
  softwaredesign.RankingContributorWeekend$MapValueSorter
-softwaredesign/Ranking.java
- softwaredesign.Ranking
 softwaredesign/RankingContributor.java
  softwaredesign.RankingContributor
+softwaredesign/RankingContributorTime.java
+ softwaredesign.RankingContributorTime
+ softwaredesign.RankingContributorTime$MapValueSorter
 softwaredesign/Application.java
  softwaredesign.Application
+softwaredesign/RankingContributorWeekday.java
+ softwaredesign.RankingContributorWeekday
+ softwaredesign.RankingContributorWeekday$MapValueSorter
 softwaredesign/RankingCommitRecent.java
  softwaredesign.RankingCommitRecent
+softwaredesign/Ranking.java
+ softwaredesign.Ranking
 softwaredesign/RankingCommitChurn.java
  softwaredesign.RankingCommitChurn
 softwaredesign/RankingCommit.java

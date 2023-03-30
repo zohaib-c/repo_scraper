@@ -2,7 +2,7 @@ package softwaredesign;
 
 import java.util.*;
 
-public class RankingCommitChurn extends Application implements Command{
+public class RankingCommitChurn extends RankingCommit implements Command{
     private String[] args;
 
     @Override

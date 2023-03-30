@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="ranking contributor fully works">
-      <change afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitChurn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitRecent.java" afterDir="false" />
+    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="ranking commit layout + recent works">
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -15,11 +12,20 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits$MapValueSorter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits$MapValueSorter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorTime.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorTime.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekday.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekday.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekend.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekend.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitChurn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitChurn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitRecent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitRecent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorCommits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorCommits.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorTime.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekday.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekday.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekend.java" afterDir="false" />
     </list>
@@ -140,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680176993662</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ranking commit layout + recent works">
+      <created>1680180294661</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680180294661</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,7 +171,8 @@
     <MESSAGE value="first" />
     <MESSAGE value="Small changes to rankings + help text" />
     <MESSAGE value="ranking contributor fully works" />
-    <option name="LAST_COMMIT_MESSAGE" value="ranking contributor fully works" />
+    <MESSAGE value="ranking commit layout + recent works" />
+    <option name="LAST_COMMIT_MESSAGE" value="ranking commit layout + recent works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
