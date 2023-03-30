@@ -19,7 +19,7 @@ public class Ranking extends Application implements Command{
     @Override
     public Boolean execute(GitLog log) {
         if (args.length != 0){
-            System.out.println("args != null\n");
+            System.out.println("args != null\n"); //TODO: delete this
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
             switch (args[0]){
                 case "commit":
