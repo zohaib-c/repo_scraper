@@ -212,11 +212,4 @@ public class SystemCommands {
             e.printStackTrace();
         }
     }
-
-    //TODO @zohaib make sure this works
-    public void authenticate(String accessToken){
-        AuthRequest authRes = new AuthRequest(accessToken);
-        authRes.authenticate();
-    }
-
 }

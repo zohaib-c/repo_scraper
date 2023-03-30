@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Ranking extends Application implements Command{
 
+    public static Integer limit = 15;
+
     private String[] args;
     @Override
     public void setArgs(String[] args) {
@@ -35,7 +37,13 @@ public class Ranking extends Application implements Command{
             }
         }
         else {
-            //
+            Command rankComm = new RankingCommit();
+            rankComm.setArgs(Arrays.copyOfRange(args, 0, args.length));
+            rankComm.execute(log);
+
+            Command rankCont = new RankingContributor();
+            rankCont.setArgs(Arrays.copyOfRange(args, 0, args.length));
+            rankCont.execute(log);
         }
         return Boolean.FALSE;
     }
