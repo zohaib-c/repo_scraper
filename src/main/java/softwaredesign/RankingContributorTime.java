@@ -38,8 +38,6 @@ public class RankingContributorTime extends Application implements Command {
                 authors.add(commit.getAuthor());
             }
 
-            System.out.println(repoCommits);
-
             List<Date> dates = new ArrayList<>();
             for (GitCommit commit: repoCommits){
                 long unixDate = commit.getUnixDate();

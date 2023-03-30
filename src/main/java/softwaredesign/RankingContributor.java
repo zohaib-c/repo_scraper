@@ -15,7 +15,6 @@ public class RankingContributor extends Ranking implements Command{
     @Override
     public Boolean execute(GitLog log) {
         if (args.length != 0){
-            System.out.println("args != null\n");
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
             switch (args[0]){
                 case "commits":
@@ -34,10 +33,29 @@ public class RankingContributor extends Ranking implements Command{
                     Command rankContWeekday = new RankingContributorWeekday();
                     rankContWeekday.setArgs(Arrays.copyOfRange(args, 1, args.length));
                     return rankContWeekday.execute(log);
+                default:
+                    System.out.println("Please enter a valid command");
+                    break;
             }
         }
         else {
-            //
+            Command rankContCommits = new RankingContributorCommits();
+            rankContCommits.setArgs(Arrays.copyOfRange(args, 0, args.length));
+            rankContCommits.execute(log);
+
+            Command rankContTime = new RankingContributorTime();
+            rankContTime.setArgs(Arrays.copyOfRange(args, 0, args.length));
+            rankContTime.execute(log);
+
+            Command rankContWeekend = new RankingContributorWeekend();
+            rankContWeekend.setArgs(Arrays.copyOfRange(args, 0, args.length));
+            rankContWeekend.execute(log);
+
+            Command rankContWeekday = new RankingContributorWeekday();
+            rankContWeekday.setArgs(Arrays.copyOfRange(args, 0, args.length));
+            rankContWeekday.execute(log);
+
+            return Boolean.TRUE;
         }
         return Boolean.FALSE;
     }

@@ -4,8 +4,8 @@ softwaredesign/AuthRequest.java
  softwaredesign.AuthRequest
 softwaredesign/GitCommit.java
  softwaredesign.GitCommit
-softwaredesign/Ranking.java
- softwaredesign.Ranking
+softwaredesign/Application.java
+ softwaredesign.Application
 softwaredesign/RankingContributorCommits.java
  softwaredesign.RankingContributorCommits
  softwaredesign.RankingContributorCommits$MapValueSorter
@@ -25,10 +25,10 @@ softwaredesign/RankingContributorWeekday.java
  softwaredesign.RankingContributorWeekday$MapValueSorter
 softwaredesign/SystemCommands.java
  softwaredesign.SystemCommands
-softwaredesign/RankingContributor.java
- softwaredesign.RankingContributor
 softwaredesign/RankingContributorTime.java
  softwaredesign.RankingContributorTime
  softwaredesign.RankingContributorTime$MapValueSorter
-softwaredesign/Application.java
- softwaredesign.Application
+softwaredesign/RankingContributor.java
+ softwaredesign.RankingContributor
+softwaredesign/Ranking.java
+ softwaredesign.Ranking
