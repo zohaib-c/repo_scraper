@@ -1,5 +1,6 @@
 package softwaredesign;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -79,9 +80,12 @@ public class Application {
                     history.push(rankingCommand);
                 }
                 break;
+            case "restart":
+                SystemCommands restart = new SystemCommands();
+                restart.restart();
+                break;
             case "stats":
                 //
-
             case "help":
                 SystemCommands help = new SystemCommands();
                 help.help();
@@ -116,6 +120,7 @@ public class Application {
 
     public static void main(String[] args){
         History history = new History();
+
 
         System.out.println("Welcome to the GitHub miner! \n");
 
