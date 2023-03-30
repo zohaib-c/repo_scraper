@@ -23,7 +23,10 @@ public class Ranking extends Application implements Command{
             System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
             switch (args[0]){
                 case "commit":
-                    //
+                    Command rankComm = new RankingCommit();
+                    rankComm.setArgs(Arrays.copyOfRange(args, 1, args.length));
+                    rankComm.execute(log);
+                    break;
                 case "contributor":
                     Command rankCont = new RankingContributor();
                     rankCont.setArgs(Arrays.copyOfRange(args, 1, args.length));

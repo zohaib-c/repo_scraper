@@ -9,5 +9,3 @@ L
 .idea/codeStyles/Project.xml,6/e/6ecd6000a7b6f4a2884412ff19f74193ed089648
 \
 ,src/main/java/softwaredesign/Repository.java,c/2/c299987ff295ff3e2af65120c0c4b0138aafee1d
-Z
-*src/main/java/softwaredesign/GitStats.java,d/1/d172239d951c6470f4ad765b32e56a4ca06b0301
