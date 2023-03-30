@@ -25,7 +25,7 @@ public class Repository extends Application{
     public Boolean cloneRepo(AuthRequest request) {
         String cloneCommand = "git clone " + repositoryUrl;
 
-        if (request.isAuthenticated){
+        if (request != null && request.isAuthenticated){
             cloneCommand = "git clone https://" + request.getAccessToken() + "@github.com/" + repoOwner + "/" + repoName + ".git";
         }
 
