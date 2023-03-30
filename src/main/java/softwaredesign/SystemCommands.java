@@ -19,14 +19,15 @@ public class SystemCommands {
     }
 
     public void quit(String repoName){
-        String dirPath = System.getProperty("user.dir") + "/" + repoName;
-        File dir = new File(dirPath);
+        if (!repoName.isEmpty()) {
+            String dirPath = System.getProperty("user.dir") + "/" + repoName;
+            File dir = new File(dirPath);
 
-        if (dir.exists()){
-            helperDelRepo(dir);
-        }
-        else {
-            System.err.println("DEBUG: some error with path or repo name, dir not deleted");
+            if (dir.exists()) {
+                helperDelRepo(dir);
+            } else {
+                System.err.println("DEBUG: some error with path or repo name, dir not deleted");
+            }
         }
 
         System.exit(0);

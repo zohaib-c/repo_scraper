@@ -19,18 +19,19 @@ public class Application {
         return authRes;
     }
 
-    private static void authenticateUser(Scanner scanner){
+    private static AuthRequest authenticateUser(Scanner scanner){
         System.out.println("If you would like to clone a private repository, you will need to provide us with a Private Access Token.\n" +
                 "Type 'yes' if you would to authenticate, otherwise type 'no'");
         String authRes = takeValidAuthResponse(scanner);
         Boolean isAuthenticated = Boolean.FALSE;
+        AuthRequest req = null;
 
         try {
             while (authRes.equals("yes") && !isAuthenticated) {
                 System.out.println("Input access token: ");
                 String accessToken = scanner.nextLine().trim();
 
-                AuthRequest req = new AuthRequest(accessToken);
+                req = new AuthRequest(accessToken);
                 isAuthenticated = req.authenticate();
 
                 if (!isAuthenticated) {
@@ -42,9 +43,11 @@ public class Application {
             System.err.println("DEBUG issue with authenticating in Application");
             e.printStackTrace();
         }
+
+        return req;
     }
 
-    private static String setRepo(Scanner scanner){
+    private static String setRepo(Scanner scanner, AuthRequest request){
         Boolean isCloned = Boolean.FALSE;
         String repoName = "";
 
@@ -53,7 +56,7 @@ public class Application {
                 System.out.println("Please enter a valid GitHub repository url you would like to clone:");
                 String url = scanner.nextLine().trim().toLowerCase();
                 Repository newRepo = new Repository(url);
-                isCloned = newRepo.cloneRepo();
+                isCloned = newRepo.cloneRepo(request);
 
                 repoName = newRepo.repoName;
             }
@@ -118,9 +121,9 @@ public class Application {
 
         Scanner scanner = new Scanner(System.in);
 
-        authenticateUser(scanner);
+        AuthRequest request = authenticateUser(scanner);
 
-        String repoName = setRepo(scanner);
+        String repoName = setRepo(scanner, request);
 
         GitLog gitLog = new GitLog();
         Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log

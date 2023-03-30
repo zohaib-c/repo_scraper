@@ -22,9 +22,14 @@ public class Repository extends Application{
 
     }
 
-    public Boolean cloneRepo() {
+    public Boolean cloneRepo(AuthRequest request) {
+        String cloneCommand = "git clone " + repositoryUrl;
 
-        ProcessBuilder processBuilder = new ProcessBuilder("git", "clone", repositoryUrl);
+        if (request.isAuthenticated){
+            cloneCommand = "git clone https://" + request.getAccessToken() + "@github.com/" + repoOwner + "/" + repoName + ".git";
+        }
+
+        ProcessBuilder processBuilder = new ProcessBuilder(cloneCommand.split(" "));
         try {
             Process process = processBuilder.start();
             int exitCode = process.waitFor();
