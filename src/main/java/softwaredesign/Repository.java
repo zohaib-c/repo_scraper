@@ -15,7 +15,6 @@ public class Repository extends Application{
             this.repoOwner = urlParts[3];
             this.repoName = urlParts[4].replace(".git", "");
 
-            System.out.println(url);
         } catch (ArrayIndexOutOfBoundsException e){
             System.err.println("Invalid URL. Try again");
         }
@@ -32,6 +31,9 @@ public class Repository extends Application{
         ProcessBuilder processBuilder = new ProcessBuilder(cloneCommand.split(" "));
         try {
             Process process = processBuilder.start();
+
+            System.out.println("Cloning " + repoName + "... ");
+
             int exitCode = process.waitFor();
 
             if (exitCode == 0) {

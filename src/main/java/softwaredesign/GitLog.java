@@ -26,13 +26,11 @@ public class GitLog extends Application{
     private GitCommit parseCommit(String log){
         String[] parts = log.split("\t");
 
-        String sha = parts[0];
-        String author = parts[1];
-        String email = parts[2];
-        long unixDate = Long.parseLong(parts[3]);
-        String messageSubject = parts[4];
+        String author = parts[0];
+        long unixDate = Long.parseLong(parts[1]);
+        String messageSubject = parts[2];
 
-        String[] statsParts = Arrays.copyOfRange(parts, 5, parts.length);
+        String[] statsParts = Arrays.copyOfRange(parts, 3, parts.length);
 
         int numFilesChanged = statsParts.length/3;
         int additions = 0;
@@ -47,12 +45,12 @@ public class GitLog extends Application{
             }
         }
 
-        return new GitCommit(sha, author, email, unixDate, messageSubject, additions, deletions, numFilesChanged);
+        return new GitCommit(author, unixDate, messageSubject, additions, deletions, numFilesChanged);
     }
 
     public Boolean runGitLog(String dir){
         Boolean logSuccesful = Boolean.FALSE;
-        String command = "git log --pretty=format:--BEGIN--\n%H\t%an\t%ae\t%at\t%s --numstat";
+        String command = "git log --pretty=format:--BEGIN--\n%an\t%at\t%s --numstat";
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
 
         processBuilder.directory(new File(System.getProperty("user.dir") + "/" + dir));
