@@ -59,14 +59,13 @@ public class RankingContributorTime extends RankingContributor implements Comman
             TreeMap<String, Date> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
-            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
-
             Integer counter = 0;
 
             System.out.println("\nList of top " + limit + " contributors ranked by who is in the project for the longest time: ");
+
             for (HashMap.Entry<String, Date> entry: rankedAuthors.entrySet()){
                 if (counter == limit) break;
-                System.out.println(counter + 1 + ". " + entry.getKey() + " - First commit: "  + sdformat.format(entry.getValue()));
+                System.out.println(counter + 1 + ". " + entry.getKey() + " - First commit: "  + dateformat.format(entry.getValue()));
                 counter++;
             }
             System.out.println("\n");

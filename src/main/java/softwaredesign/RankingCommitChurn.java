@@ -13,7 +13,7 @@ public class RankingCommitChurn extends RankingCommit implements Command{
     @Override
     public Boolean execute(GitLog log) {
         if (args.length !=0){
-            System.err.println("DEBUG: There should be no args here");
+            System.err.println("DEBUG: There should be no args here");//TODO: Delete this
             return Boolean.FALSE;
         }
         else{

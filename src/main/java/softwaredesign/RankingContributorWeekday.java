@@ -29,6 +29,22 @@ public class RankingContributorWeekday extends RankingContributor implements Com
         }
     }
 
+    private static void printResult(TreeMap<String, Integer> dayAuthors, String day){
+        int counter = 0;
+        if(dayAuthors.size() == 0){
+            System.out.println("No one contributed on " + day);
+        }
+        else {
+            System.out.println("\n" + day + ": ");
+            for (HashMap.Entry<String, Integer> entry: dayAuthors.entrySet()){
+                if (counter == limit) break;
+                System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
+                counter++;
+            }
+            System.out.println("\n");
+        }
+    }
+
     @Override
     public void setArgs(String[] args) {
         this.args = args;
@@ -94,76 +110,11 @@ public class RankingContributorWeekday extends RankingContributor implements Com
 
             System.out.println("\nList of contributors ranked by who contributed most on the given weekdays: ");
 
-            Integer counter = 0;
-
-            if(rankedMonAuthors.size() == 0){
-                System.out.println("No one contributed on Mondays");
-            }
-            else {
-                System.out.println("\nMondays: ");
-                for (HashMap.Entry<String, Integer> entry: rankedMonAuthors.entrySet()){
-                    if (counter == limit) break;
-                    System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
-                    counter++;
-                }
-            }
-
-            counter = 0;
-
-            if(rankedTueAuthors.size() == 0){
-                System.out.println("No one contributed on Tuesdays");
-            }
-            else {
-                System.out.println("\nTuesdays: ");
-                for (HashMap.Entry<String, Integer> entry: rankedTueAuthors.entrySet()){
-                    if (counter == limit) break;
-                    System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
-                    counter++;
-                }
-            }
-
-            counter = 0;
-
-            if(rankedWedAuthors.size() == 0){
-                System.out.println("No one contributed on Wednesdays");
-            }
-            else {
-                System.out.println("\nWednesdays: ");
-                for (HashMap.Entry<String, Integer> entry: rankedWedAuthors.entrySet()){
-                    if (counter == limit) break;
-                    System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
-                    counter++;
-                }
-            }
-
-            counter = 0;
-
-            if(rankedThuAuthors.size() == 0){
-                System.out.println("No one contributed on Thursdays");
-            }
-            else {
-                System.out.println("\nThursdays: ");
-                for (HashMap.Entry<String, Integer> entry: rankedThuAuthors.entrySet()){
-                    if (counter == limit) break;
-                    System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
-                    counter++;
-                }
-            }
-
-            counter = 0;
-
-            if(rankedFriAuthors.size() == 0){
-                System.out.println("No one contributed on Fridays");
-            }
-            else {
-                System.out.println("\nFridays: ");
-                for (HashMap.Entry<String, Integer> entry: rankedFriAuthors.entrySet()){
-                    if (counter == limit) break;
-                    System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
-                    counter++;
-                }
-                System.out.println("\n");
-            }
+            printResult(rankedMonAuthors, "Mondays");
+            printResult(rankedTueAuthors, "Tuesdays");
+            printResult(rankedWedAuthors, "Wednesdays");
+            printResult(rankedThuAuthors, "Thursdays");
+            printResult(rankedFriAuthors, "Fridays");
 
             return Boolean.TRUE;
         }

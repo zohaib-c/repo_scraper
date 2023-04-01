@@ -20,10 +20,6 @@ public class RankingCommitRecent extends RankingCommit implements Command{
         else{
             List<GitCommit> repoCommits = log.getCommits();
 
-            //Integer limit = 15;
-
-            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
-
             System.out.println("\nList of " + limit + "most recent commits: ");
 
             for (int i = 0; i < limit; i++) {
@@ -31,7 +27,7 @@ public class RankingCommitRecent extends RankingCommit implements Command{
                 long unixDate = commit.getUnixDate();
                 Date date = new java.util.Date(unixDate * 1000L);
                 System.out.println(i+1 + ". " + commit.getMessage() + " made by " +
-                        commit.getAuthor() + " on " + sdformat.format(date));
+                        commit.getAuthor() + " on " + dateformat.format(date));
             }
 
 
