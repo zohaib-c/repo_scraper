@@ -28,7 +28,7 @@ public class Application {
         AuthRequest req = null;
 
         try {
-            while (authRes.equals("yes") && !isAuthenticated) {
+            while (authRes.equals("yes") && Boolean.TRUE.equals(!isAuthenticated)) {
                 System.out.println("Input access token: ");
                 String accessToken = scanner.nextLine().trim();
 
@@ -51,7 +51,7 @@ public class Application {
     private static Repository setRepo(Scanner scanner){
         Boolean isSet = Boolean.FALSE;
         Repository newRepo = new Repository();
-        while (!isSet){
+        while (Boolean.FALSE.equals(isSet)){
             System.out.println("Please enter a valid GitHub repository url you would like to clone:");
             String url = scanner.nextLine().trim().toLowerCase();
             isSet = newRepo.setRepositoryUrl(url);
@@ -64,12 +64,12 @@ public class Application {
         String repoName = "";
 
         try {
-            while (!isCloned) {
+            while (Boolean.FALSE.equals(isCloned)) {
                 Repository newRepo = setRepo(scanner);
 
                 isCloned = newRepo.cloneRepo(request);
 
-                if (!isCloned){
+                if (Boolean.FALSE.equals(isCloned)){
                     authenticateUser(scanner);
                 }
 
@@ -90,7 +90,7 @@ public class Application {
             case "ranking":
                 Command rankingCommand = new Ranking();
                 rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                if (rankingCommand.execute(log)){
+                if (Boolean.TRUE.equals(rankingCommand.execute(log))){
                     history.push(rankingCommand);
                 }
                 break;
@@ -101,7 +101,7 @@ public class Application {
             case "stats":
                 Command statsCommand = new Stats();
                 statsCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                if (statsCommand.execute(log)){
+                if (Boolean.TRUE.equals(statsCommand.execute(log))){
                     history.push(statsCommand);
                 }
                 break;
