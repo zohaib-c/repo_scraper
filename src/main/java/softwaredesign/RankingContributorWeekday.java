@@ -19,6 +19,36 @@ public class RankingContributorWeekday extends RankingContributor implements Com
         }
     }
 
+    private final List<String> authors = new ArrayList<>();
+
+    private final List<Integer> dates = new ArrayList<>();
+
+    private final HashMap<String, Integer> monAuthors = new HashMap<>();
+    private final HashMap<String, Integer> tueAuthors = new HashMap<>();
+    private final HashMap<String, Integer> wedAuthors = new HashMap<>();
+    private final HashMap<String, Integer> thuAuthors = new HashMap<>();
+    private final HashMap<String, Integer> friAuthors = new HashMap<>();
+
+    private void sumWeekdayCommits(){
+        for (int i = 0; i < dates.size(); i++){
+            if(dates.get(i) == 1){
+                countCommits(monAuthors, authors, i);
+            }
+            else if(dates.get(i) == 2){
+                countCommits(tueAuthors, authors, i);
+            }
+            else if(dates.get(i) == 3){
+                countCommits(wedAuthors, authors, i);
+            }
+            else if(dates.get(i) == 4){
+                countCommits(thuAuthors, authors, i);
+            }
+            else if(dates.get(i) == 5){
+                countCommits(friAuthors, authors, i);
+            }
+        }
+    }
+
     private String[] args;
 
     private static void countCommits(HashMap<String, Integer> dayAuthors, List<String> authors, Integer index){
@@ -37,8 +67,8 @@ public class RankingContributorWeekday extends RankingContributor implements Com
         }
         else {
             System.out.println("\n" + day + ": ");
-            for (HashMap.Entry<String, Integer> entry: dayAuthors.entrySet()){
-                if (counter == limit) break;
+            for (Map.Entry<String, Integer> entry: dayAuthors.entrySet()){
+                if (counter == LIMIT) break;
                 System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
                 counter++;
             }
@@ -54,54 +84,29 @@ public class RankingContributorWeekday extends RankingContributor implements Com
     @Override
     public Boolean execute(GitLog log) {
         if (args.length != 0) {
-            System.err.println("DEBUG: There should be no args here");
             return Boolean.FALSE;
         } else {
             List<GitCommit> repoCommits = log.getCommits();
 
-            List<String> authors = new ArrayList<>();
+            //Get list of commit authors
             for (GitCommit commit: repoCommits){
                 authors.add(commit.getAuthor());
             }
 
-            List<Integer> dates = new ArrayList<>();
-
+            //Get the day of the week when the commit was made
             for (GitCommit commit: repoCommits){
                 long unixDate = commit.getUnixDate();;
                 Date date = new java.util.Date(unixDate * 1000L);
                 dates.add(date.getDay());
             }
 
-            HashMap<String, Integer> monAuthors = new HashMap<>();
-            HashMap<String, Integer> tueAuthors = new HashMap<>();
-            HashMap<String, Integer> wedAuthors = new HashMap<>();
-            HashMap<String, Integer> thuAuthors = new HashMap<>();
-            HashMap<String, Integer> friAuthors = new HashMap<>();
+            sumWeekdayCommits();
 
-
-            for (int i = 0; i < dates.size(); i++){
-                if(dates.get(i) == 1){
-                    countCommits(monAuthors, authors, i);
-                }
-                else if(dates.get(i) == 2){
-                    countCommits(tueAuthors, authors, i);
-                }
-                else if(dates.get(i) == 3){
-                    countCommits(wedAuthors, authors, i);
-                }
-                else if(dates.get(i) == 4){
-                    countCommits(thuAuthors, authors, i);
-                }
-                else if(dates.get(i) == 5){
-                    countCommits(friAuthors, authors, i);
-                }
-            }
-
-            TreeMap<String, Integer> rankedMonAuthors = new TreeMap<>(new RankingContributorWeekday.MapValueSorter(monAuthors));
-            TreeMap<String, Integer> rankedTueAuthors = new TreeMap<>(new RankingContributorWeekday.MapValueSorter(tueAuthors));
-            TreeMap<String, Integer> rankedWedAuthors = new TreeMap<>(new RankingContributorWeekday.MapValueSorter(wedAuthors));
-            TreeMap<String, Integer> rankedThuAuthors = new TreeMap<>(new RankingContributorWeekday.MapValueSorter(thuAuthors));
-            TreeMap<String, Integer> rankedFriAuthors = new TreeMap<>(new RankingContributorWeekday.MapValueSorter(friAuthors));
+            TreeMap<String, Integer> rankedMonAuthors = new TreeMap<>(new MapValueSorter(monAuthors));
+            TreeMap<String, Integer> rankedTueAuthors = new TreeMap<>(new MapValueSorter(tueAuthors));
+            TreeMap<String, Integer> rankedWedAuthors = new TreeMap<>(new MapValueSorter(wedAuthors));
+            TreeMap<String, Integer> rankedThuAuthors = new TreeMap<>(new MapValueSorter(thuAuthors));
+            TreeMap<String, Integer> rankedFriAuthors = new TreeMap<>(new MapValueSorter(friAuthors));
 
             rankedMonAuthors.putAll(monAuthors);
             rankedTueAuthors.putAll(tueAuthors);

@@ -1,10 +1,25 @@
 package softwaredesign;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RankingCommitRecent extends RankingCommit implements Command{
     private String[] args;
+
+    private List<GitCommit> repoCommits;
+
+    private void printResult(){
+        System.out.println("\nList of most recent commits: ");
+
+        for (int i = 0; i < LIMIT; i++) {
+            GitCommit commit = repoCommits.get(i);
+            long unixDate = commit.getUnixDate();
+            Date date = new java.util.Date(unixDate * 1000L);
+            System.out.println(i+1 + ". " + commit.getMessage() + " made by " +
+                    commit.getAuthor() + " on " + dateFormat.format(date));
+        }
+
+        System.out.println("\n");
+    }
 
     @Override
     public void setArgs(String[] args) {
@@ -14,24 +29,12 @@ public class RankingCommitRecent extends RankingCommit implements Command{
     @Override
     public Boolean execute(GitLog log) {
         if (args.length !=0){
-            System.err.println("DEBUG: There should be no args here"); //TODO: Delete
             return Boolean.FALSE;
         }
         else{
-            List<GitCommit> repoCommits = log.getCommits();
+            repoCommits = log.getCommits();
 
-            System.out.println("\nList of " + limit + "most recent commits: ");
-
-            for (int i = 0; i < limit; i++) {
-                GitCommit commit = repoCommits.get(i);
-                long unixDate = commit.getUnixDate();
-                Date date = new java.util.Date(unixDate * 1000L);
-                System.out.println(i+1 + ". " + commit.getMessage() + " made by " +
-                        commit.getAuthor() + " on " + dateformat.format(date));
-            }
-
-
-            System.out.println("\n");
+            printResult();
 
             return Boolean.TRUE;
         }

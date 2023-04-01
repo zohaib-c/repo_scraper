@@ -17,6 +17,36 @@ public class RankingContributorCommits extends RankingContributor implements Com
             return uniqueAuthors.get(b).compareTo(uniqueAuthors.get(a));
         }
     }
+
+    private final List<String> authors = new ArrayList<>();
+
+    private final HashMap<String, Integer> uniqueAuthors = new HashMap<>();
+
+    private TreeMap<String, Integer> rankedAuthors;
+
+    private void countCommits(){
+        for (String author: authors){
+            if (uniqueAuthors.containsKey(author)){
+                uniqueAuthors.put(author, uniqueAuthors.get(author)+1);
+            }
+            else{
+                uniqueAuthors.put(author, 1);
+            }
+        }
+    }
+
+    private void printResult(){
+        System.out.println("\nList of top contributors ranked by number of commits made: ");
+
+        Integer counter = 0;
+        for (Map.Entry<String, Integer> entry: rankedAuthors.entrySet()){
+            if (Objects.equals(counter, LIMIT)) break;
+            System.out.println(counter + 1 + ". " + entry.getKey() + ": "  + entry.getValue());
+            counter++;
+        }
+        System.out.println("\n");
+    }
+
     private String[] args;
 
     @Override
@@ -27,38 +57,22 @@ public class RankingContributorCommits extends RankingContributor implements Com
     @Override
     public Boolean execute(GitLog log) {
         if (args.length !=0){
-            System.err.println("DEBUG: There should be no args here");
             return Boolean.FALSE;
         }
         else{
             List<GitCommit> repoCommits = log.getCommits();
-            List<String> authors = new ArrayList<>();
+
+            //Get list of commit authors
             for (GitCommit commit: repoCommits){
                 authors.add(commit.getAuthor());
             }
 
-            HashMap<String, Integer> uniqueAuthors = new HashMap<>();
-            for (String author: authors){
-                if (uniqueAuthors.containsKey(author)){
-                    uniqueAuthors.put(author, uniqueAuthors.get(author)+1);
-                }
-                else{
-                    uniqueAuthors.put(author, 1);
-                }
-            }
+            countCommits();
 
-            TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
+            rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
-            System.out.println("\nList of top " + limit + " contributors ranked by number of commits made: ");
-
-            Integer counter = 0;
-            for (HashMap.Entry<String, Integer> entry: rankedAuthors.entrySet()){
-                if (counter == limit) break;
-                System.out.println(counter + 1 + ". " + entry.getKey() + ": "  + entry.getValue());
-                counter++;
-            }
-            System.out.println("\n");
+            printResult();
 
             return Boolean.TRUE;
         }

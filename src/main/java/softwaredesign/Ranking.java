@@ -1,18 +1,12 @@
 package softwaredesign;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Ranking implements Command{
 
-    public static Integer limit = 15;
-    public static SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+    public static final Integer LIMIT = 15;
+    public final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
     private String[] args;
     @Override
@@ -23,8 +17,6 @@ public class Ranking implements Command{
     @Override
     public Boolean execute(GitLog log) {
         if (args.length != 0){
-            System.out.println("args != null\n"); //TODO: delete this
-            System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
             switch (args[0]){
                 case "commit":
                     Command rankComm = new RankingCommit();
@@ -35,6 +27,9 @@ public class Ranking implements Command{
                     Command rankCont = new RankingContributor();
                     rankCont.setArgs(Arrays.copyOfRange(args, 1, args.length));
                     rankCont.execute(log);
+                    break;
+                default:
+                    System.out.println("\u001B[31mPlease enter a valid command, type 'help' for more info \u001B[0m");
                     break;
             }
         }

@@ -1,7 +1,6 @@
 package softwaredesign;
 
 import java.util.*;
-import java.text.*;
 
 public class RankingContributorTime extends RankingContributor implements Command {
 
@@ -18,6 +17,38 @@ public class RankingContributorTime extends RankingContributor implements Comman
         }
     }
 
+    private final List<String> authors = new ArrayList<>();
+
+    private final List<Date> dates = new ArrayList<>();
+
+    private final HashMap<String, Date> uniqueAuthors = new HashMap<>();
+
+    private TreeMap<String, Date> rankedAuthors;
+
+    private void calculateContributorTime(){
+        Collections.reverse(dates);
+        Collections.reverse(authors);
+
+        for (int i = 0; i < authors.size(); i++){
+            if (!uniqueAuthors.containsKey(authors.get(i))){
+                uniqueAuthors.put(authors.get(i), dates.get(i));
+            }
+        }
+    }
+
+    private void printResult(){
+        int counter = 0;
+
+        System.out.println("\nList of top contributors ranked by who is in the project for the longest time: ");
+
+        for (Map.Entry<String, Date> entry: rankedAuthors.entrySet()){
+            if (counter == LIMIT) break;
+            System.out.println(counter + 1 + ". " + entry.getKey() + " - First commit: "  + dateFormat.format(entry.getValue()));
+            counter++;
+        }
+        System.out.println("\n");
+    }
+
     private String[] args;
 
     @Override
@@ -28,47 +59,28 @@ public class RankingContributorTime extends RankingContributor implements Comman
     @Override
     public Boolean execute(GitLog log) {
         if (args.length != 0) {
-            System.err.println("DEBUG: There should be no args here");
             return Boolean.FALSE;
         } else {
             List<GitCommit> repoCommits = log.getCommits();
 
-            List<String> authors = new ArrayList<>();
+            //Get list of commit authors
             for (GitCommit commit: repoCommits){
                 authors.add(commit.getAuthor());
             }
 
-            List<Date> dates = new ArrayList<>();
+            //Get list of commit dates
             for (GitCommit commit: repoCommits){
                 long unixDate = commit.getUnixDate();
                 Date date = new java.util.Date(unixDate * 1000L);
                 dates.add(date);
             }
 
-            Collections.reverse(dates);
-            Collections.reverse(authors);
+            calculateContributorTime();
 
-            HashMap<String, Date> uniqueAuthors = new HashMap<>();
-
-            for (int i = 0; i < authors.size(); i++){
-                if (!uniqueAuthors.containsKey(authors.get(i))){
-                    uniqueAuthors.put(authors.get(i), dates.get(i));
-                }
-            }
-
-            TreeMap<String, Date> rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
+            rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 
-            Integer counter = 0;
-
-            System.out.println("\nList of top " + limit + " contributors ranked by who is in the project for the longest time: ");
-
-            for (HashMap.Entry<String, Date> entry: rankedAuthors.entrySet()){
-                if (counter == limit) break;
-                System.out.println(counter + 1 + ". " + entry.getKey() + " - First commit: "  + dateformat.format(entry.getValue()));
-                counter++;
-            }
-            System.out.println("\n");
+            printResult();
 
             return Boolean.TRUE;
         }
