@@ -164,6 +164,9 @@ public class SystemCommands {
                     rankingCommand.execute(log);
                     break;
                 case "stats":
+                    Command statsCommand = new Stats();
+                    statsCommand.setArgs(Arrays.copyOfRange(command, 1, command.length));
+                    statsCommand.execute(log);
                     break;
                 default:
                     System.err.println("Your command " + command[0] + " cannot be recognized!");
