@@ -11,7 +11,7 @@ public class Application {
     private static String takeValidAuthResponse(Scanner scanner){
         String authRes = scanner.nextLine().trim().toLowerCase();
         while (!authRes.equals("yes") && !authRes.equals("no")){
-            System.err.println("'" + authRes + "' is not a valid response.");
+            System.out.println("\u001B[31m'" + authRes + "' is not a valid response.\u001B[0m");
             System.out.println("Please enter 'yes' or 'no'");
             authRes = scanner.nextLine().trim().toLowerCase();
         }
@@ -20,7 +20,8 @@ public class Application {
     }
 
     private static AuthRequest authenticateUser(Scanner scanner){
-        System.out.println("If you would like to clone a private repository, you will need to provide us with a Private Access Token.\n" +
+        System.out.println("If you would like to clone a private repository, you will need to provide us with a " +
+                "Private Access Token.\n" +
                 "Type 'yes' if you would to authenticate, otherwise type 'no'");
         String authRes = takeValidAuthResponse(scanner);
         Boolean isAuthenticated = Boolean.FALSE;
@@ -47,16 +48,30 @@ public class Application {
         return req;
     }
 
-    private static String setRepo(Scanner scanner, AuthRequest request){
+    private static Repository setRepo(Scanner scanner){
+        Boolean isSet = Boolean.FALSE;
+        Repository newRepo = new Repository();
+        while (!isSet){
+            System.out.println("Please enter a valid GitHub repository url you would like to clone:");
+            String url = scanner.nextLine().trim().toLowerCase();
+            isSet = newRepo.setRepositoryUrl(url);
+        }
+        return newRepo;
+    }
+
+    private static String cloneRepo(Scanner scanner, AuthRequest request){
         Boolean isCloned = Boolean.FALSE;
         String repoName = "";
 
         try {
             while (!isCloned) {
-                System.out.println("Please enter a valid GitHub repository url you would like to clone:");
-                String url = scanner.nextLine().trim().toLowerCase();
-                Repository newRepo = new Repository(url);
+                Repository newRepo = setRepo(scanner);
+
                 isCloned = newRepo.cloneRepo(request);
+
+                if (!isCloned){
+                    authenticateUser(scanner);
+                }
 
                 repoName = newRepo.repoName;
             }
@@ -70,7 +85,7 @@ public class Application {
     }
 
 
-    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName, History history){
+    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName, History history){ //What is repoName used for? =================
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
@@ -79,11 +94,15 @@ public class Application {
                     history.push(rankingCommand);
                 }
                 break;
+            case "restart":
+                SystemCommands restart = new SystemCommands();
+                restart.restart();
+                break;
             case "stats":
-                Command statsCmd = new Stats();
-                statsCmd.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                if (statsCmd.execute(log)) {
-                    history.push(statsCmd);
+                Command statsCommand = new Stats();
+                statsCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
+                if (statsCommand.execute(log)){
+                    history.push(statsCommand);
                 }
                 break;
             case "help":
@@ -97,6 +116,10 @@ public class Application {
             case "history":
                 SystemCommands printHistory = new SystemCommands();
                 printHistory.history(history);
+                break;
+            case "report":
+                SystemCommands report = new SystemCommands();
+                report.report(log,repoName);
                 break;
             default:
                 System.err.println("Command not recognised. Enter help for a list of valid commands.");
@@ -127,12 +150,12 @@ public class Application {
 
         AuthRequest request = authenticateUser(scanner);
 
-        String repoName = setRepo(scanner, request);
+        String repoName = cloneRepo(scanner, request);
 
         GitLog gitLog = new GitLog();
         Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log
 
-        System.out.println("Type 'help' to see the list of commands.");
+        System.out.println("To see a list of commands, please enter 'help'.");
         mainCommandLoop(scanner, gitLog, repoName, history);
 
         scanner.close();
