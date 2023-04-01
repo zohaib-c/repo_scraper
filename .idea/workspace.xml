@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="ranking finished" />
+    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="resolved some SonarLint warnings" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -159,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680384449077</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="resolved some SonarLint warnings">
+      <created>1680384789308</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1680384789308</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,7 +187,8 @@
     <MESSAGE value="ranking commit layout + recent works" />
     <MESSAGE value="ranking polishing" />
     <MESSAGE value="ranking finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="ranking finished" />
+    <MESSAGE value="resolved some SonarLint warnings" />
+    <option name="LAST_COMMIT_MESSAGE" value="resolved some SonarLint warnings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

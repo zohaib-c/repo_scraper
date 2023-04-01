@@ -38,7 +38,7 @@ public class RankingContributorCommits extends RankingContributor implements Com
     private void printResult(){
         System.out.println("\nList of top contributors ranked by number of commits made: ");
 
-        Integer counter = 0;
+        int counter = 0;
         for (Map.Entry<String, Integer> entry: rankedAuthors.entrySet()){
             if (Objects.equals(counter, LIMIT)) break;
             System.out.println(counter + 1 + ". " + entry.getKey() + ": "  + entry.getValue());
