@@ -1,24 +1,34 @@
 package softwaredesign;
 
 import java.io.IOException;
-import java.util.TreeMap;
 
 public class Repository extends Application{
-    private final String repositoryUrl;
+    private String repositoryUrl;
     public String repoOwner;
     public String repoName;
 
-    public Repository(String url){
+
+    public Boolean setRepositoryUrl(String url) {
         this.repositoryUrl = url;
         try {
             String[] urlParts = url.split("/");
-            this.repoOwner = urlParts[3];
-            this.repoName = urlParts[4].replace(".git", "");
+            setRepoOwner(urlParts[3]);
+            setRepoName(urlParts[4].replace(".git", ""));
+            return Boolean.TRUE;
 
         } catch (ArrayIndexOutOfBoundsException e){
-            System.err.println("Invalid URL. Try again");
+            System.out.println("\u001B[31mInvalid URL. '" + url + "' is not a valid HTTPS git url. "
+                    + "Try again.\u001B[0m\n");
+            return Boolean.FALSE;
         }
+    }
 
+    private void setRepoOwner(String repoOwner) {
+        this.repoOwner = repoOwner;
+    }
+
+    private void setRepoName(String repoName) {
+        this.repoName = repoName;
     }
 
     public Boolean cloneRepo(AuthRequest request) {
@@ -32,15 +42,16 @@ public class Repository extends Application{
         try {
             Process process = processBuilder.start();
 
-            System.out.println("Cloning " + repoName + "... ");
+            System.out.println("Cloning " + repoName + "... \n");
 
             int exitCode = process.waitFor();
 
             if (exitCode == 0) {
-                System.out.println("Repository cloned successfully.\n");
+                System.out.println("Repository cloned successfully.");
                 return Boolean.TRUE;
             } else {
-                System.err.println("Failed to clone repository.\n");
+                System.out.println("\u001B[31mFailed to clone repository.\u001B[0m");
+                System.out.println("This could be because you are trying to clone a private repository.");
                 return Boolean.FALSE;
             }
         } catch (IOException | InterruptedException e) {

@@ -33,7 +33,6 @@ public class GitLog extends Application{
         int additions = 0;
         int deletions = 0;
 
-        System.out.println("DEBUG: " + Arrays.toString(statsParts));
         for (int i = 0; i < statsParts.length; i++){
             if (i % 3 == 0) {
                 try {
@@ -85,7 +84,6 @@ public class GitLog extends Application{
                     }
                     if (singleCommit.length() != 0){
                         commits.add(parseCommit(singleCommit.toString()));
-//                        System.out.println(Arrays.toString(singleCommit.toString().split("\t")));
                         singleCommit = new StringBuilder();
                     }
 
