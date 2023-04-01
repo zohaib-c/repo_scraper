@@ -1,6 +1,5 @@
 package softwaredesign;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -12,7 +11,7 @@ public class Application {
     private static String takeValidAuthResponse(Scanner scanner){
         String authRes = scanner.nextLine().trim().toLowerCase();
         while (!authRes.equals("yes") && !authRes.equals("no")){
-            System.err.println("'" + authRes + "' is not a valid response.");
+            System.out.println("\u001B[31m'" + authRes + "' is not a valid response.\u001B[0m");
             System.out.println("Please enter 'yes' or 'no'");
             authRes = scanner.nextLine().trim().toLowerCase();
         }
@@ -21,7 +20,8 @@ public class Application {
     }
 
     private static AuthRequest authenticateUser(Scanner scanner){
-        System.out.println("If you would like to clone a private repository, you will need to provide us with a Private Access Token.\n" +
+        System.out.println("If you would like to clone a private repository, you will need to provide us with a " +
+                "Private Access Token.\n" +
                 "Type 'yes' if you would to authenticate, otherwise type 'no'");
         String authRes = takeValidAuthResponse(scanner);
         Boolean isAuthenticated = Boolean.FALSE;
@@ -48,16 +48,30 @@ public class Application {
         return req;
     }
 
-    private static String setRepo(Scanner scanner, AuthRequest request){
+    private static Repository setRepo(Scanner scanner){
+        Boolean isSet = Boolean.FALSE;
+        Repository newRepo = new Repository();
+        while (!isSet){
+            System.out.println("Please enter a valid GitHub repository url you would like to clone:");
+            String url = scanner.nextLine().trim().toLowerCase();
+            isSet = newRepo.setRepositoryUrl(url);
+        }
+        return newRepo;
+    }
+
+    private static String cloneRepo(Scanner scanner, AuthRequest request){
         Boolean isCloned = Boolean.FALSE;
         String repoName = "";
 
         try {
             while (!isCloned) {
-                System.out.println("Please enter a valid GitHub repository url you would like to clone:");
-                String url = scanner.nextLine().trim().toLowerCase();
-                Repository newRepo = new Repository(url);
+                Repository newRepo = setRepo(scanner);
+
                 isCloned = newRepo.cloneRepo(request);
+
+                if (!isCloned){
+                    authenticateUser(scanner);
+                }
 
                 repoName = newRepo.repoName;
             }
@@ -136,7 +150,7 @@ public class Application {
 
         AuthRequest request = authenticateUser(scanner);
 
-        String repoName = setRepo(scanner, request);
+        String repoName = cloneRepo(scanner, request);
 
         GitLog gitLog = new GitLog();
         Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log
