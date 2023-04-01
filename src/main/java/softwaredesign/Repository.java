@@ -2,7 +2,7 @@ package softwaredesign;
 
 import java.io.IOException;
 
-public class Repository extends Application{
+public class Repository {
     private String repositoryUrl;
     public String repoOwner;
     public String repoName;

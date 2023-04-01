@@ -4,7 +4,7 @@ import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
 
-public class AuthRequest extends Application{
+public class AuthRequest {
     private final String accessToken;
     public Boolean isAuthenticated = Boolean.FALSE;
 

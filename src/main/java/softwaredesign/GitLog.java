@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class GitLog extends Application{
+public class GitLog {
     private final List<GitCommit> commits;
 
     public GitLog(){

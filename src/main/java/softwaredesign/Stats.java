@@ -16,7 +16,7 @@ import java.util.Arrays;
 * contributor with the most/least commits: x
 * contributor who has worked on it for the longest/shortest: x*/
 
-public class Stats extends Application implements Command {
+public class Stats implements Command {
     private String[] args;
     @Override
     public void setArgs(String[] args) {
