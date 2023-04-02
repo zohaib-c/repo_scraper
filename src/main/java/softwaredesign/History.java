@@ -3,15 +3,27 @@ package softwaredesign;
 import java.util.Stack;
 
 public class History {
-    private Stack<Command> history = new Stack<>();
+    public static History instance;
+    private final Stack<String> s;
 
-    public void push(Command c){
-        this.history.push(c);
+    private History() {
+        this.s = new Stack<>();
     }
 
-    public Command pop(){
-        return this.history.pop();
+    public static History getInstance() {
+        if (instance == null) {
+            instance = new History();
+        }
+        return instance;
     }
 
-    public Boolean isEmpty() {return this.history.isEmpty();}
+    public void push(String cmd){
+        this.s.push(cmd);
+    }
+
+    public String pop(){
+        return this.s.pop();
+    }
+
+    public Boolean isEmpty() {return this.s.isEmpty();}
 }

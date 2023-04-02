@@ -24,7 +24,7 @@ public class StatsContributor extends Stats implements Command {
             uniqueAuthors.put("empty", 0);
         }
 
-        TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new RankingContributorCommits.MapValueSorter(uniqueAuthors));
+        TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new RankingContributorCommit.MapValueSorter(uniqueAuthors));
         rankedAuthors.putAll(uniqueAuthors);
 
         return rankedAuthors.firstEntry();
@@ -58,7 +58,7 @@ public class StatsContributor extends Stats implements Command {
         }
 
         // The TreeMap is a Data Structure that allows for sorted key-value pairs
-        TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new RankingContributorCommits.MapValueSorter(uniqueAuthors));
+        TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new RankingContributorCommit.MapValueSorter(uniqueAuthors));
         rankedAuthors.putAll(uniqueAuthors);
         mostCommits = rankedAuthors.firstEntry();
 

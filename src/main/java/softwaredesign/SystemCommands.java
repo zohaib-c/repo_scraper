@@ -55,22 +55,21 @@ public class SystemCommands {
         return reportCommands;
     }
 
-        public static void openReport() throws IOException {
-            String fileName = "report.txt";
-            if (!Desktop.isDesktopSupported()) {
-                throw new UnsupportedOperationException("Desktop is not supported on this platform.");
-            }
-
-            Desktop desktop = Desktop.getDesktop();
-
-            if (!desktop.isSupported(Desktop.Action.OPEN)) {
-                throw new UnsupportedOperationException("The open action is not supported on this platform.");
-            }
-
-            File file = new File(fileName);
-            desktop.open(file);
+    public static void openReport() throws IOException {
+        String fileName = "report.txt";
+        if (!Desktop.isDesktopSupported()) {
+            throw new UnsupportedOperationException("Desktop is not supported on this platform.");
         }
 
+        Desktop desktop = Desktop.getDesktop();
+
+        if (!desktop.isSupported(Desktop.Action.OPEN)) {
+            throw new UnsupportedOperationException("The open action is not supported on this platform.");
+        }
+
+        File file = new File(fileName);
+        desktop.open(file);
+    }
 
     private static void helperDelRepo(File directory){
         File[] files = directory.listFiles();
@@ -187,8 +186,13 @@ public class SystemCommands {
         }
     }
 
-    public void history(History history){
-        //
+    public void history(){
+        History history = History.getInstance();
+        System.out.println("\nHistory of the previously entered commands: ");
+        while (!history.isEmpty()) {
+            System.out.println("\t\t" + history.pop());
+        }
+        System.out.println("\n");
     }
 
     public void restart(String repoName) {

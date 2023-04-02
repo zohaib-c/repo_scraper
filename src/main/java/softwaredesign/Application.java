@@ -94,14 +94,16 @@ public class Application {
     }
 
 
-    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName, History history){ //What is repoName used for? =================
+    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName){
+        History h = History.getInstance();
         switch (parsedCommand[0]){
             case "ranking":
                 Command rankingCommand = new Ranking();
                 rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                if (Boolean.TRUE.equals(rankingCommand.execute(log))){
+                /*if (Boolean.TRUE.equals(rankingCommand.execute(log))){
                     history.push(rankingCommand);
-                }
+                }*/
+                rankingCommand.execute(log);
                 break;
             case "restart":
                 SystemCommands restart = new SystemCommands();
@@ -110,13 +112,12 @@ public class Application {
             case "stats":
                 Command statsCommand = new Stats();
                 statsCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                if (Boolean.TRUE.equals(statsCommand.execute(log))){
-                    history.push(statsCommand);
-                }
+                statsCommand.execute(log);
                 break;
             case "help":
                 SystemCommands help = new SystemCommands();
                 help.help();
+                h.push("help");
                 break;
             case "quit":
                 SystemCommands quit = new SystemCommands();
@@ -124,11 +125,12 @@ public class Application {
                 break;
             case "history":
                 SystemCommands printHistory = new SystemCommands();
-                printHistory.history(history);
+                printHistory.history();
                 break;
             case "report":
                 SystemCommands report = new SystemCommands();
                 report.report(log,repoName);
+                h.push("report");
                 break;
             default:
                 System.err.println("Command not recognised. Enter help for a list of valid commands.");
@@ -136,11 +138,11 @@ public class Application {
     }
 
 
-    private static void mainCommandLoop(Scanner scanner, GitLog gitLog, String repoName, History history){
+    private static void mainCommandLoop(Scanner scanner, GitLog gitLog, String repoName){
         while (true) {
             try {
                 System.out.println("Enter a command:");
-                executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName, history);
+                executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName);
             }
             catch (Exception e){
                 System.err.println("DEBUG error taking command input");
@@ -151,8 +153,6 @@ public class Application {
     }
 
     public static void main(String[] args){
-        History history = new History();
-
         System.out.println("Welcome to the GitHub miner! \n");
 
         Scanner scanner = new Scanner(System.in);
@@ -167,7 +167,7 @@ public class Application {
         Boolean logged = gitLog.runGitLog(repo.repoName); //TODO: something with a failed log
 
         System.out.println("To see a list of commands, please enter 'help'.");
-        mainCommandLoop(scanner, gitLog, repo.repoName, history);
+        mainCommandLoop(scanner, gitLog, repo.repoName);
 
         scanner.close();
     }

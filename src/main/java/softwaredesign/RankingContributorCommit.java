@@ -2,7 +2,7 @@ package softwaredesign;
 
 import java.util.*;
 
-public class RankingContributorCommits extends RankingContributor implements Command{
+public class RankingContributorCommit extends RankingContributor implements Command{
 
 
     static class MapValueSorter implements Comparator<String> {

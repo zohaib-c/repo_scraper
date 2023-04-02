@@ -21,6 +21,7 @@ public class Ranking implements Command{
 
     @Override
     public Boolean execute(GitLog log) {
+        History h = History.getInstance();
         if (args.length != 0){
             switch (args[0]){
                 case "commit":
@@ -46,7 +47,8 @@ public class Ranking implements Command{
             Command rankCont = new RankingContributor();
             rankCont.setArgs(Arrays.copyOfRange(args, 0, args.length));
             rankCont.execute(log);
+            h.push("ranking");
         }
-        return Boolean.FALSE;
+        return Boolean.TRUE;
     }
 }

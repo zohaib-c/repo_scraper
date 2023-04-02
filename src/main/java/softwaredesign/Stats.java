@@ -18,6 +18,7 @@ public class Stats implements Command {
 
     @Override
     public Boolean execute(GitLog log) {
+        History h = History.getInstance();
         List<GitCommit> repoCommits = log.getCommits();
         Repository repo = Repository.getInstance("url", "repoOwner", "repoName");
 
@@ -34,10 +35,12 @@ public class Stats implements Command {
                 case "commit":
                     Command statsCom = new StatsCommit();
                     statsCom.execute(log);
+                    h.push("stats commit");
                     break;
                 case "contributor":
                     Command statsCont = new StatsContributor();
                     statsCont.execute(log);
+                    h.push("stats contributor");
                     break;
                 default:
                     System.out.println("Unrecognized argument for stats. Type 'help' for a list of commands.");
@@ -51,7 +54,8 @@ public class Stats implements Command {
             System.out.println("\nCONTRIBUTORS");
             Command statsCont = new StatsContributor();
             statsCont.execute(log);
+            h.push("stats");
         }
-        return Boolean.TRUE; //???
+        return Boolean.TRUE;
     }
 }
