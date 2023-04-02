@@ -3,32 +3,22 @@ package softwaredesign;
 import java.io.IOException;
 
 public class Repository {
-    private String repositoryUrl;
+    public static Repository instance;
+    private final String repositoryUrl;
     public String repoOwner;
     public String repoName;
 
-
-    public Boolean setRepositoryUrl(String url) {
+    private Repository(String url, String repoOwner, String repoName) {
         this.repositoryUrl = url;
-        try {
-            String[] urlParts = url.split("/");
-            setRepoOwner(urlParts[3]);
-            setRepoName(urlParts[4].replace(".git", ""));
-            return Boolean.TRUE;
-
-        } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("\u001B[31mInvalid URL. '" + url + "' is not a valid HTTPS git url. "
-                    + "Try again.\u001B[0m\n");
-            return Boolean.FALSE;
-        }
-    }
-
-    private void setRepoOwner(String repoOwner) {
         this.repoOwner = repoOwner;
+        this.repoName = repoName;
     }
 
-    private void setRepoName(String repoName) {
-        this.repoName = repoName;
+    public static Repository getInstance(String url, String repoOwner, String repoName) {
+        if (instance == null) {
+            instance = new Repository(url, repoOwner, repoName);
+        }
+        return instance;
     }
 
     public Boolean cloneRepo(AuthRequest request) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class StatsCommits extends Stats implements Command {
+public class StatsCommit extends Stats implements Command {
 
     private List<GitCommit> repoCommits;
 

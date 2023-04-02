@@ -2,7 +2,7 @@ package softwaredesign;
 
 import java.util.*;
 
-public class StatsContributors extends Stats implements Command {
+public class StatsContributor extends Stats implements Command {
 
     private final List<String> allContributors = new ArrayList<>();
     private final List<Integer> dates = new ArrayList<>();

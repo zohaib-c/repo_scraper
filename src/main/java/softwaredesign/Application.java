@@ -48,40 +48,49 @@ public class Application {
         return req;
     }
 
-    private static Repository setRepo(Scanner scanner){
-        Boolean isSet = Boolean.FALSE;
-        Repository newRepo = new Repository();
+    private static void setRepo(Scanner scanner){
+        boolean isSet = false;
+        String url = "";
+        String repoName = "";
+        String repoOwner = "";
         while (Boolean.FALSE.equals(isSet)){
             System.out.println("Please enter a valid GitHub repository url you would like to clone:");
-            String url = scanner.nextLine().trim().toLowerCase();
-            isSet = newRepo.setRepositoryUrl(url);
+            url = scanner.nextLine().trim().toLowerCase();
+            try {
+                String[] urlParts = url.split("/");
+                repoOwner = urlParts[3];
+                repoName = urlParts[4].replace(".git", "");
+                isSet = true;
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("\u001B[31mInvalid URL. '" + url + "' is not a valid HTTPS git url. "
+                        + "Try again.\u001B[0m\n");
+            }
         }
-        return newRepo;
+
+        Repository repo = Repository.getInstance(url, repoOwner, repoName);
     }
 
-    private static String cloneRepo(Scanner scanner, AuthRequest request){
+    private static void cloneRepo(Scanner scanner, AuthRequest request){
         Boolean isCloned = Boolean.FALSE;
         String repoName = "";
 
         try {
             while (Boolean.FALSE.equals(isCloned)) {
-                Repository newRepo = setRepo(scanner);
+                setRepo(scanner);
+
+                Repository newRepo = Repository.getInstance("url", "repoOwner", "repoName");
 
                 isCloned = newRepo.cloneRepo(request);
 
                 if (Boolean.FALSE.equals(isCloned)){
                     authenticateUser(scanner);
                 }
-
-                repoName = newRepo.repoName;
             }
         }
         catch (Exception e){
             System.err.println("DEBUG issue with with cloning repo in Application");
             e.printStackTrace();
         }
-
-        return repoName;
     }
 
 
@@ -150,13 +159,15 @@ public class Application {
 
         AuthRequest request = authenticateUser(scanner);
 
-        String repoName = cloneRepo(scanner, request);
+        cloneRepo(scanner, request);
+
+        Repository repo = Repository.getInstance("url", "repoOwner", "repoName");
 
         GitLog gitLog = new GitLog();
-        Boolean logged = gitLog.runGitLog(repoName); //TODO: something with a failed log
+        Boolean logged = gitLog.runGitLog(repo.repoName); //TODO: something with a failed log
 
         System.out.println("To see a list of commands, please enter 'help'.");
-        mainCommandLoop(scanner, gitLog, repoName, history);
+        mainCommandLoop(scanner, gitLog, repo.repoName, history);
 
         scanner.close();
     }
