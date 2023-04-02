@@ -33,11 +33,11 @@ public class Stats implements Command {
         if (args.length != 0){
             switch (args[0]){
                 case "commit":
-                    Command statsCom = new StatsCommits();
+                    Command statsCom = new StatsCommit();
                     statsCom.execute(log);
                     break;
                 case "contributor":
-                    Command statsCont = new StatsContributors();
+                    Command statsCont = new StatsContributor();
                     statsCont.execute(log);
                     break;
                 default:
@@ -47,10 +47,10 @@ public class Stats implements Command {
         }
         else {
             System.out.println("COMMITS");
-            Command statsCom = new StatsCommits();
+            Command statsCom = new StatsCommit();
             statsCom.execute(log);
             System.out.println("\nCONTRIBUTORS");
-            Command statsCont = new StatsContributors();
+            Command statsCont = new StatsContributor();
             statsCont.execute(log);
         }
         return Boolean.TRUE; //???
