@@ -1,10 +1,5 @@
 package softwaredesign;
 
-/*
-* Repo name: x
-* repo owner: x
-*/
-
 /* The stats command outputs an overview of information about the repository, its contributors and their commits.
  * As a result, there are similar calculations in Stats and Ranking, because the same metrics (e.g. commit with the
  * highest churn) are used. However, creating an additional abstract class that includes shared methods would add a lot
@@ -24,6 +19,10 @@ public class Stats implements Command {
     @Override
     public Boolean execute(GitLog log) {
         List<GitCommit> repoCommits = log.getCommits();
+        Repository repo = Repository.getInstance("url", "repoOwner", "repoName");
+
+        System.out.println("Summary of Stats for the repository '" + repo.repoName + "' owned by " + repo.repoOwner);
+
         if (repoCommits.size() < 1) {
             System.out.println("There are no commits (and consequently no contributors) in this repository");
             return Boolean.TRUE;
@@ -33,11 +32,11 @@ public class Stats implements Command {
         if (args.length != 0){
             switch (args[0]){
                 case "commit":
-                    Command statsCom = new StatsCommits();
+                    Command statsCom = new StatsCommit();
                     statsCom.execute(log);
                     break;
                 case "contributor":
-                    Command statsCont = new StatsContributors();
+                    Command statsCont = new StatsContributor();
                     statsCont.execute(log);
                     break;
                 default:
@@ -47,10 +46,10 @@ public class Stats implements Command {
         }
         else {
             System.out.println("COMMITS");
-            Command statsCom = new StatsCommits();
+            Command statsCom = new StatsCommit();
             statsCom.execute(log);
             System.out.println("\nCONTRIBUTORS");
-            Command statsCont = new StatsContributors();
+            Command statsCont = new StatsContributor();
             statsCont.execute(log);
         }
         return Boolean.TRUE; //???
