@@ -19,9 +19,9 @@ public class RankingContributorWeekday extends RankingContributor implements Com
         }
     }
 
-    private final List<String> authors = new ArrayList<>();
+    private static final List<String> authors = new ArrayList<>();
 
-    private final List<Integer> dates = new ArrayList<>();
+    private static final List<Integer> dates = new ArrayList<>();
 
     private final HashMap<String, Integer> monAuthors = new HashMap<>();
     private final HashMap<String, Integer> tueAuthors = new HashMap<>();
@@ -32,26 +32,26 @@ public class RankingContributorWeekday extends RankingContributor implements Com
     private void sumWeekdayCommits(){
         for (int i = 0; i < dates.size(); i++){
             if(dates.get(i) == 1){
-                countCommits(monAuthors, authors, i);
+                countCommits(monAuthors, i);
             }
             else if(dates.get(i) == 2){
-                countCommits(tueAuthors, authors, i);
+                countCommits(tueAuthors, i);
             }
             else if(dates.get(i) == 3){
-                countCommits(wedAuthors, authors, i);
+                countCommits(wedAuthors,  i);
             }
             else if(dates.get(i) == 4){
-                countCommits(thuAuthors, authors, i);
+                countCommits(thuAuthors, i);
             }
             else if(dates.get(i) == 5){
-                countCommits(friAuthors, authors, i);
+                countCommits(friAuthors, i);
             }
         }
     }
 
     private String[] args;
 
-    private static void countCommits(HashMap<String, Integer> dayAuthors, List<String> authors, Integer index){
+    private static void countCommits(HashMap<String, Integer> dayAuthors, Integer index){
         if (dayAuthors.containsKey(authors.get(index))){
             dayAuthors.put(authors.get(index), dayAuthors.get(authors.get(index))+1);
         }
@@ -108,6 +108,7 @@ public class RankingContributorWeekday extends RankingContributor implements Com
             TreeMap<String, Integer> rankedThuAuthors = new TreeMap<>(new MapValueSorter(thuAuthors));
             TreeMap<String, Integer> rankedFriAuthors = new TreeMap<>(new MapValueSorter(friAuthors));
 
+            //Sort
             rankedMonAuthors.putAll(monAuthors);
             rankedTueAuthors.putAll(tueAuthors);
             rankedWedAuthors.putAll(wedAuthors);

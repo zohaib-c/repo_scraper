@@ -69,6 +69,7 @@ public class RankingContributorCommits extends RankingContributor implements Com
 
             countCommits();
 
+            //Sort
             rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 

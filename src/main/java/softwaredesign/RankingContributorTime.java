@@ -77,6 +77,7 @@ public class RankingContributorTime extends RankingContributor implements Comman
 
             calculateContributorTime();
 
+            //Sort
             rankedAuthors = new TreeMap<>(new MapValueSorter(uniqueAuthors));
             rankedAuthors.putAll(uniqueAuthors);
 

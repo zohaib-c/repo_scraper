@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="resolved some SonarLint warnings" />
+    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="SonarLint again">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekday.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekday.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekday.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekday.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680384789308</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="SonarLint again">
+      <created>1680385058828</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1680385058828</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,7 +210,8 @@
     <MESSAGE value="ranking polishing" />
     <MESSAGE value="ranking finished" />
     <MESSAGE value="resolved some SonarLint warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolved some SonarLint warnings" />
+    <MESSAGE value="SonarLint again" />
+    <option name="LAST_COMMIT_MESSAGE" value="SonarLint again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class Ranking implements Command{
 
+    //Limit for printing rankings to avoid issues with big repositories
     public static final Integer LIMIT = 15;
     public final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
@@ -13,6 +14,10 @@ public class Ranking implements Command{
     public void setArgs(String[] args) {
         this.args = args;
     }
+
+    /*The structure of the Rankings (and Stats as well) is meant to work in a way, that if a user does not specify any
+    arguments all the possible commands "under" the one specified are executed. Ex. if user types in Ranking Commit both
+    Ranking Commit Churn and Ranking Commit Recent will be executed.*/
 
     @Override
     public Boolean execute(GitLog log) {
