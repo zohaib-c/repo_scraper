@@ -105,7 +105,7 @@ public class Application {
                 break;
             case "restart":
                 SystemCommands restart = new SystemCommands();
-                restart.restart();
+                restart.restart(repoName);
                 break;
             case "stats":
                 Command statsCommand = new Stats();
