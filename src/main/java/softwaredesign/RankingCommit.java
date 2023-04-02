@@ -1,7 +1,5 @@
 package softwaredesign;
 
-//please let me push
-
 import java.util.Arrays;
 
 public class RankingCommit extends Ranking implements Command {
