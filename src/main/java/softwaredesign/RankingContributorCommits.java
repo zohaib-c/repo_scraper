@@ -39,8 +39,13 @@ public class RankingContributorCommits extends RankingContributor implements Com
         System.out.println("\nList of top contributors ranked by number of commits made: ");
 
         int counter = 0;
+        int limit = 0;
+
+        if (rankedAuthors.size() < LIMIT) limit = rankedAuthors.size();
+        else limit = LIMIT;
+
         for (Map.Entry<String, Integer> entry: rankedAuthors.entrySet()){
-            if (Objects.equals(counter, LIMIT)) break;
+            if (Objects.equals(counter, limit)) break;
             System.out.println(counter + 1 + ". " + entry.getKey() + ": "  + entry.getValue());
             counter++;
         }

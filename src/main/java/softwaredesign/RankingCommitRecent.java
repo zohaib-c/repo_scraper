@@ -10,7 +10,12 @@ public class RankingCommitRecent extends RankingCommit implements Command{
     private void printResult(){
         System.out.println("\nList of most recent commits: ");
 
-        for (int i = 0; i < LIMIT; i++) {
+        int limit = 0;
+
+        if (repoCommits.size() < LIMIT) limit = repoCommits.size();
+        else limit = LIMIT;
+
+        for (int i = 0; i < limit; i++) {
             GitCommit commit = repoCommits.get(i);
             long unixDate = commit.getUnixDate();
             Date date = new java.util.Date(unixDate * 1000L);

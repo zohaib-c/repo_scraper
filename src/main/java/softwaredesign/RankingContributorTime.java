@@ -38,11 +38,15 @@ public class RankingContributorTime extends RankingContributor implements Comman
 
     private void printResult(){
         int counter = 0;
+        int limit = 0;
+
+        if (rankedAuthors.size() < LIMIT) limit = rankedAuthors.size();
+        else limit = LIMIT;
 
         System.out.println("\nList of top contributors ranked by who is in the project for the longest time: ");
 
         for (Map.Entry<String, Date> entry: rankedAuthors.entrySet()){
-            if (counter == LIMIT) break;
+            if (counter == limit) break;
             System.out.println(counter + 1 + ". " + entry.getKey() + " - First commit: "  + dateFormat.format(entry.getValue()));
             counter++;
         }
