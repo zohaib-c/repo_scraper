@@ -2,6 +2,14 @@ package softwaredesign;
 
 import java.io.IOException;
 
+/* We decided to make this class a Singleton class, because of the following two reasons:
+*       1. There is going to be only one cloned repository at a time. Consequently, we need to ensure that there is only
+*          one instance of the Repository Class. We do not want multiple objects representing the same repository that
+*          was cloned to the user's machine.
+*       2. The Repository Object needs to be accessed in multiple different points in the program, such as the execute()
+*          method in the Stats class, and the executeCommand() method in the Application class.
+*/
+
 public class Repository {
     public static Repository instance;
     private final String repositoryUrl;
