@@ -1,23 +1,21 @@
 package softwaredesign;
 
-import java.util.Arrays;
-
 /*
 * Repo name: x
 * repo owner: x
-* total number of commits: x
-* commit with the highest churn: x
-* first commit: x
-* most recent commit: x
-* commit with the most additions: x
-* list of all contributors: x
-* total number of contributors: x
-* contributors who worked most on weekends: x
-* contributor with the most/least commits: x
-* contributor who has worked on it for the longest/shortest: x*/
+*/
+
+/* The stats command outputs an overview of information about the repository, its contributors and their commits.
+ * As a result, there are similar calculations in Stats and Ranking, because the same metrics (e.g. commit with the
+ * highest churn) are used. However, creating an additional abstract class that includes shared methods would add a lot
+ * of complexity, because one method would only be useful to 2 out of 12 subclasses. For this reason, similar code in
+ * the implementations of ranking and stats can be found. */
+
+import java.util.List;
 
 public class Stats implements Command {
     private String[] args;
+
     @Override
     public void setArgs(String[] args) {
         this.args = args;
@@ -25,10 +23,14 @@ public class Stats implements Command {
 
     @Override
     public Boolean execute(GitLog log) {
+        List<GitCommit> repoCommits = log.getCommits();
+        if (repoCommits.size() < 1) {
+            System.out.println("There are no commits (and consequently no contributors) in this repository");
+            return Boolean.TRUE;
+        }
+
         System.out.println();
         if (args.length != 0){
-            System.out.println("args != null\n");
-            System.out.println(Arrays.toString(Arrays.stream(args).toArray()));
             switch (args[0]){
                 case "commit":
                     Command statsCom = new StatsCommits();
@@ -39,7 +41,7 @@ public class Stats implements Command {
                     statsCont.execute(log);
                     break;
                 default:
-                    System.out.println("Unrecognized argument for stats");
+                    System.out.println("Unrecognized argument for stats. Type 'help' for a list of commands.");
                     return Boolean.FALSE;
             }
         }

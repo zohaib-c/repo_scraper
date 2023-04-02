@@ -1,21 +1,41 @@
 package softwaredesign;
 
-/*
-        * list of all contributors: x
-        * total number of contributors: x
-        * contributor who worked most on weekends: x
-        * contributor with the most/least commits: x
-        * contributor who has worked on it for the longest/shortest: x
-*/
-
 import java.util.*;
 
 public class StatsContributors extends Stats implements Command {
+
+    private final List<String> allContributors = new ArrayList<>();
+    private final List<Integer> dates = new ArrayList<>();
+
+    private Map.Entry<String, Integer> workDistributionWeek(int from, int until) {
+        HashMap<String, Integer> uniqueAuthors = new HashMap<>();
+        for (int i = 0; i < dates.size(); i++){
+            if(dates.get(i) == from || dates.get(i) == until || (dates.get(i) > from && dates.get(i) < until)){
+                if (uniqueAuthors.containsKey(allContributors.get(i))){
+                    uniqueAuthors.put(allContributors.get(i), uniqueAuthors.get(allContributors.get(i))+1);
+                }
+                else{
+                    uniqueAuthors.put(allContributors.get(i), 1);
+                }
+            }
+        }
+
+        if (uniqueAuthors.isEmpty()) {
+            uniqueAuthors.put("empty", 0);
+        }
+
+        TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new RankingContributorCommits.MapValueSorter(uniqueAuthors));
+        rankedAuthors.putAll(uniqueAuthors);
+
+        return rankedAuthors.firstEntry();
+    }
+
     @Override
     public Boolean execute(GitLog log) {
         List<GitCommit> repoCommits = log.getCommits();
-        List<String> allContributors = new ArrayList<>();
-        List<Integer> dates = new ArrayList<>();
+        Map.Entry<String, Integer> mostCommits;
+        Map.Entry<String, Integer> mostWeekends;
+        Map.Entry<String, Integer> mostWeekdays;
 
         int numOfContr = 0;
         for (GitCommit commit: repoCommits){
@@ -25,7 +45,8 @@ public class StatsContributors extends Stats implements Command {
             allContributors.add(commit.getAuthor());
         }
 
-        HashMap<String, Integer> uniqueAuthors = new HashMap<>(); //<authorName, numOfCommits>
+        // We decided to use a HashMap to be able to look up the amount of commits for each contributor
+        HashMap<String, Integer> uniqueAuthors = new HashMap<>();
         for (String author: allContributors){
             if (uniqueAuthors.containsKey(author)){
                 uniqueAuthors.put(author, uniqueAuthors.get(author)+1);
@@ -36,34 +57,34 @@ public class StatsContributors extends Stats implements Command {
             }
         }
 
+        // The TreeMap is a Data Structure that allows for sorted key-value pairs
         TreeMap<String, Integer> rankedAuthors = new TreeMap<>(new RankingContributorCommits.MapValueSorter(uniqueAuthors));
         rankedAuthors.putAll(uniqueAuthors);
+        mostCommits = rankedAuthors.firstEntry();
 
-        Map.Entry<String, Integer> mostCommits = rankedAuthors.firstEntry();
+        mostWeekends = workDistributionWeek(6,0);
+        mostWeekdays = workDistributionWeek(1, 5);
 
-        for (int i = 0; i < dates.size(); i++){
-            if(dates.get(i) == 6 || dates.get(i) == 0){
-                if (uniqueAuthors.containsKey(allContributors.get(i))){
-                    uniqueAuthors.put(allContributors.get(i), uniqueAuthors.get(allContributors.get(i))+1);
-                }
-                else{
-                    uniqueAuthors.put(allContributors.get(i), 1);
-                }
-            }
-        }
-
-        rankedAuthors = new TreeMap<>(new RankingContributorCommits.MapValueSorter(uniqueAuthors));
-        rankedAuthors.putAll(uniqueAuthors);
-
-        Map.Entry<String, Integer> mostWeekends = rankedAuthors.firstEntry();
 
         System.out.println("Number of contributors: " + numOfContr);
+        System.out.println("Contributor with the most commits: " + mostCommits.getKey() + " with " + mostCommits.getValue() + " commits");
+        if(Objects.equals(mostWeekdays.getValue(), 0)) {
+            System.out.println("Noone contributed on weekdays.");
+        }
+        else {
+            System.out.println("Contributor who worked most from Monday to Friday: " + mostWeekdays.getKey() + " with " + mostWeekdays.getValue() + " commits");
+        }
+        if(Objects.equals(mostWeekends.getValue(), 0)) {
+            System.out.println("Noone contributed during the weekend.");
+        }
+        else {
+            System.out.println("Contributor who worked most during the weekends: " + mostWeekends.getKey() + " with " + mostWeekends.getValue() + " commits");
+        }
         System.out.println("List of all contributors: ");
         for (String contr: uniqueAuthors.keySet()) {
             System.out.println(contr);
         }
-        System.out.println("Contributor with the most commits: " + mostCommits.getKey() + " with " + mostCommits.getValue() + " commits");
-        System.out.println("Contributor who worked most during the weekends: " + mostWeekends.getKey()+ "\n");
+        System.out.println("\n");
 
         return Boolean.TRUE;
     }
