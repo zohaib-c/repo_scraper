@@ -86,18 +86,23 @@ public class SystemCommands {
         directory.delete();
     }
 
-    public void quit(String repoName){
-        if (!repoName.isEmpty()) {
-            String dirPath = System.getProperty("user.dir") + "/" + repoName;
-            File dir = new File(dirPath);
+    private static void deleteRepo(String repoName){
 
-            if (dir.exists()) {
-                helperDelRepo(dir);
-            } else {
-                System.err.println("DEBUG: some error with path or repo name, dir not deleted");
-            }
+        if(repoName.isEmpty()) return;
+
+        String dirPath = System.getProperty("user.dir") + "/" + repoName;
+        File dir = new File(dirPath);
+
+        if(!dir.exists()){
+            System.err.println("DEBUG: some error with path or repo name, dir not deleted");
+            return;
         }
 
+        helperDelRepo(dir);
+    }
+
+    public void quit(String repoName){
+        deleteRepo(repoName);
         System.exit(0);
     }
 
@@ -169,7 +174,7 @@ public class SystemCommands {
                     statsCommand.execute(log);
                     break;
                 default:
-                    System.err.println("Your command " + command[0] + " cannot be recognized!");
+                    System.out.println("Your command " + command[0] + " could not be recognized!");
             }
         }
 
@@ -186,19 +191,24 @@ public class SystemCommands {
         //
     }
 
-    public void restart() {
+    public void restart(String repoName) {
         try {
-            String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+            String javaBin = System.getProperty("java.home") +
+                    File.separator + "bin" + File.separator + "java";
             List<String> command = new ArrayList<>();
             command.add(javaBin);
 
             // Add JVM arguments
-            List<String> jvmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+            List<String> jvmArguments =
+                    ManagementFactory.getRuntimeMXBean().getInputArguments();
             command.addAll(jvmArguments);
 
             // Add classpath
             command.add("-cp");
             command.add(System.getProperty("java.class.path"));
+
+            // Delete cloned repository
+            deleteRepo(repoName);
 
             command.add(Application.class.getName());
             ProcessBuilder builder = new ProcessBuilder(command);
@@ -207,12 +217,20 @@ public class SystemCommands {
             builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             builder.redirectError(ProcessBuilder.Redirect.INHERIT);
 
-            builder.start();
-            System.exit(0);
+            Process process = builder.start();
+
+            try {
+                process.waitFor();
+            } catch (InterruptedException e) {
+                System.err.println("Process interrupted: " +
+                        e.getMessage());
+            }
 
         } catch (IOException e) {
-            System.err.println("Failed to restart the application: " + e.getMessage());
+            System.err.println("Failed to restart the application: " +
+                    e.getMessage());
             e.printStackTrace();
         }
+        System.exit(0);
     }
 }
