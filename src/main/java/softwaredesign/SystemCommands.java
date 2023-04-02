@@ -107,7 +107,7 @@ public class SystemCommands {
                 "\n" +
                 "Usage:\n" +
                 "  ranking <command> <subcommand>\n" +
-                "  stats <command> <subcommand>\n" +
+                "  stats <command>\n" +
                 "\n" +
                 "where command and subcommand are optional parameters.\n" +
                 "\n" +
@@ -115,9 +115,9 @@ public class SystemCommands {
                 "  stats \t\t\t\t- print all statistics\n" +
                 "\n" +
                 "Available commands and sub commands for ranking:\n" +
-                "  commits \t\t\t\t- rank commits based on churn and recent\n" +
-                "  commits churn \t\t- rank commits based on churn\n" +
-                "  commits recent \t\t- rank commits based on recent\n" +
+                "  commit \t\t\t\t- rank commits based on churn and recent\n" +
+                "  commit churn \t\t- rank commits based on churn\n" +
+                "  commit recent \t\t- rank commits based on recent\n" +
                 "  contributor \t\t\t- rank contributors based on commits, weekend, time, and weekday\n" +
                 "  contributor commits \t- rank contributors based on the numbers of commits\n" +
                 "  contributor weekend \t- rank contributors based on who worked most on the weekends\n" +
@@ -125,8 +125,8 @@ public class SystemCommands {
                 "  contributor weekday \t- rank contributors based on who worked most on given weekday\n" +
                 "\n" +
                 "Available commands for stats:\n" +
-                "  commits \t\t\t\t- print stats of commits\n" +
-                "  contributors \t\t\t- print stats of contributors\n" +
+                "  commit \t\t\t\t- print stats of commits\n" +
+                "  contributor \t\t\t- print stats of contributors\n" +
                 "\n" +
                 "Available system commands:\n" +
                 "  history \t\t\t\t- prints history of all commands\n" +
@@ -136,9 +136,9 @@ public class SystemCommands {
                 "  quit \t\t\t\t\t- quits the program\n" +
                 " \n" +
                 "Examples:\n" +
-                "  $ ranking commits\n" +
-                "  $ ranking contributor commits\n" +
-                "  $ stats commits\n" +
+                "  $ ranking commit\n" +
+                "  $ ranking contributor commit\n" +
+                "  $ stats commit\n" +
                 "  $ ranking\n" +
                 "  $ stats contributor\n" +
                 "  $ history\n");
