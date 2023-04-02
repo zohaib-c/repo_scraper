@@ -33,10 +33,14 @@ public class RankingCommitChurn extends RankingCommit implements Command{
 
     private void printResult(){
         int counter = 0;
+        int limit = 0;
+
+        if (repoCommits.size() < LIMIT) limit = repoCommits.size();
+        else limit = LIMIT;
 
         System.out.println("\nList of commits ranked by the highest churn: ");
         for (Map.Entry<String, Integer> entry: rankedCommits.entrySet()){
-            if(Objects.equals(counter, LIMIT)) break;
+            if(Objects.equals(counter, limit)) break;
             System.out.println(counter + 1 + ". " + entry.getKey() + " - Churn: "  + entry.getValue());
             counter++;
         }

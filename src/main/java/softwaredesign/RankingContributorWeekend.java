@@ -46,10 +46,14 @@ public class RankingContributorWeekend extends RankingContributor implements Com
 
     private void printResult(){
         int counter = 0;
+        int limit = 0;
+
+        if (rankedAuthors.size() < LIMIT) limit = rankedAuthors.size();
+        else limit = LIMIT;
 
         System.out.println("\nList of contributors ranked by who contributed most on the weekends: ");
         for (Map.Entry<String, Integer> entry: rankedAuthors.entrySet()){
-            if(Objects.equals(counter, LIMIT)) break;
+            if(Objects.equals(counter, limit)) break;
             System.out.println(counter + 1 + ". " + entry.getKey() + " - Number of commits: "  + entry.getValue());
             counter++;
         }

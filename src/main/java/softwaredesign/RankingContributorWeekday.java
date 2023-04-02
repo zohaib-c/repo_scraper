@@ -62,13 +62,18 @@ public class RankingContributorWeekday extends RankingContributor implements Com
 
     private static void printResult(TreeMap<String, Integer> dayAuthors, String day){
         int counter = 0;
+        int limit = 0;
+
+        if (dayAuthors.size() < LIMIT) limit = dayAuthors.size();
+        else limit = LIMIT;
+
         if(dayAuthors.size() == 0){
             System.out.println("No one contributed on " + day);
         }
         else {
             System.out.println("\n" + day + ": ");
             for (Map.Entry<String, Integer> entry: dayAuthors.entrySet()){
-                if (counter == LIMIT) break;
+                if (counter == limit) break;
                 System.out.println(counter + 1 + ". " + entry.getKey() + " : "  + entry.getValue());
                 counter++;
             }

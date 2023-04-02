@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="SonarLint again">
+    <list default="true" id="faeb8cf0-d86f-497a-bf33-f61891809591" name="Changes" comment="Added comments for code clarity">
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -13,12 +13,18 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/Ranking.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorCommits.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorTime.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorTime.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekday.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekday.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekend.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/softwaredesign/RankingContributorWeekend.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/Ranking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitChurn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitChurn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitRecent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingCommitRecent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorCommits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorCommits.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorTime.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekday.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekday.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/softwaredesign/RankingContributorWeekend.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680385058828</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added comments for code clarity">
+      <created>1680433153487</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1680433153487</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +224,8 @@
     <MESSAGE value="ranking finished" />
     <MESSAGE value="resolved some SonarLint warnings" />
     <MESSAGE value="SonarLint again" />
-    <option name="LAST_COMMIT_MESSAGE" value="SonarLint again" />
+    <MESSAGE value="Added comments for code clarity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added comments for code clarity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
