@@ -58,7 +58,6 @@ public class Application {
             e.printStackTrace();
         }
 
-        assert req != null;
         return req;
     }
 
