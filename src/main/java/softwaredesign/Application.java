@@ -180,13 +180,13 @@ public class Application {
         Repository repo = Repository.getInstance("url", "repoOwner", "repoName");
 
         GitLog gitLog = new GitLog();
-        if (Boolean.FALSE.equals(gitLog.runGitLog(repo.repoName))){
+        if (Boolean.FALSE.equals(gitLog.runGitLog(repo.getRepoName()))){
             System.out.println("\u001B[31mThere was an error while getting commit information. Force restarting application now.\u001B[0m");
-            new SystemCommands().restart(repo.repoName);
+            new SystemCommands().restart(repo.getRepoName());
         }
 
         System.out.println("To see a list of commands, please enter 'help'.");
-        mainCommandLoop(scanner, gitLog, repo.repoName);
+        mainCommandLoop(scanner, gitLog, repo.getRepoName());
 
         scanner.close();
     }

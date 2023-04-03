@@ -13,13 +13,21 @@ import java.io.IOException;
 public class Repository {
     public static Repository instance;
     private final String repositoryUrl;
-    public String repoOwner;
-    public String repoName;
+    private final String repoOwner;
+    private final String repoName;
 
     private Repository(String url, String repoOwner, String repoName) {
         this.repositoryUrl = url;
         this.repoOwner = repoOwner;
         this.repoName = repoName;
+    }
+
+    public String getRepoName() {
+        return repoName;
+    }
+
+    public String getRepoOwner() {
+        return repoOwner;
     }
 
     public static Repository getInstance(String url, String repoOwner, String repoName) {

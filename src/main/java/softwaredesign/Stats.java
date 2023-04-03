@@ -45,7 +45,7 @@ public class Stats implements Command {
             }
         }
         else {
-            System.out.println("Summary of Stats for the repository '" + repo.repoName + "' owned by " + repo.repoOwner + ": ");
+            System.out.println("Summary of Stats for the repository '" + repo.getRepoName() + "' owned by " + repo.getRepoOwner() + ": ");
 
 
             System.out.println("COMMITS");
