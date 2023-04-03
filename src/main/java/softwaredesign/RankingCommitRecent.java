@@ -10,7 +10,7 @@ public class RankingCommitRecent extends RankingCommit implements Command{
     private void printResult(){
         System.out.println("\nList of most recent commits: ");
 
-        int limit = 0;
+        int limit;
 
         if (repoCommits.size() < LIMIT) limit = repoCommits.size();
         else limit = LIMIT;
@@ -40,6 +40,8 @@ public class RankingCommitRecent extends RankingCommit implements Command{
             repoCommits = log.getCommits();
 
             printResult();
+
+            History.getInstance().push("ranking commit recent");
 
             return Boolean.TRUE;
         }

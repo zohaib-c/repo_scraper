@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 //small size test repo: https://github.com/zohaib-c/first_website.git
 //medium size test repo: https://github.com/fauxpilot/fauxpilot.git
+//token test: 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
 
 public class Application {
 
@@ -24,27 +25,31 @@ public class Application {
                 "Private Access Token.\n" +
                 "Type 'yes' if you would to authenticate, otherwise type 'no'");
         String authRes = takeValidAuthResponse(scanner);
-        Boolean isAuthenticated = Boolean.FALSE;
         AuthRequest req = null;
 
-        try {
-            while (authRes.equals("yes") && Boolean.TRUE.equals(!isAuthenticated)) {
-                System.out.println("Input access token: ");
-                String accessToken = scanner.nextLine().trim();
+        try{
+            if (authRes.equals("yes")) {
+                do {
+                    System.out.println("Input access token: ");
+                    String accessToken = scanner.nextLine().trim();
 
-                req = new AuthRequest(accessToken);
-                isAuthenticated = req.authenticate();
+                    req = new AuthRequest(accessToken);
+                    req.authenticate();
 
-                if (!isAuthenticated) {
-                    System.out.println("Would you like to try again? yes/no");
-                    authRes = takeValidAuthResponse(scanner);
-                }
+                    if (Boolean.FALSE.equals(req.isAuthenticated)) {
+                        System.out.println("Would you like to try again? yes/no");
+                        authRes = takeValidAuthResponse(scanner);
+                    }
+
+                } while (authRes.equals("yes") && Boolean.FALSE.equals(req.isAuthenticated));
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             System.err.println("DEBUG issue with authenticating in Application");
             e.printStackTrace();
         }
 
+        assert req != null;
         return req;
     }
 
@@ -67,12 +72,11 @@ public class Application {
             }
         }
 
-        Repository repo = Repository.getInstance(url, repoOwner, repoName);
+        Repository.getInstance(url, repoOwner, repoName);
     }
 
     private static void cloneRepo(Scanner scanner, AuthRequest request){
         Boolean isCloned = Boolean.FALSE;
-        String repoName = "";
 
         try {
             while (Boolean.FALSE.equals(isCloned)) {
@@ -94,47 +98,44 @@ public class Application {
     }
 
 
-    private static void executeCommand(String[] parsedCommand, GitLog log, String repoName){
-        History h = History.getInstance();
-        switch (parsedCommand[0]){
-            case "ranking":
-                Command rankingCommand = new Ranking();
-                rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                /*if (Boolean.TRUE.equals(rankingCommand.execute(log))){
-                    history.push(rankingCommand);
-                }*/
-                rankingCommand.execute(log);
-                break;
-            case "restart":
-                SystemCommands restart = new SystemCommands();
-                restart.restart(repoName);
-                break;
-            case "stats":
-                Command statsCommand = new Stats();
-                statsCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
-                statsCommand.execute(log);
-                break;
-            case "help":
-                SystemCommands help = new SystemCommands();
-                help.help();
-                h.push("help");
-                break;
-            case "quit":
-                SystemCommands quit = new SystemCommands();
-                quit.quit(repoName);
-                break;
-            case "history":
-                SystemCommands printHistory = new SystemCommands();
-                printHistory.history();
-                break;
-            case "report":
-                SystemCommands report = new SystemCommands();
-                report.report(log,repoName);
-                h.push("report");
-                break;
-            default:
-                System.err.println("Command not recognised. Enter help for a list of valid commands.");
+    private static Boolean executeCommand(String[] parsedCommand, GitLog log, String repoName){
+        try {
+            switch (parsedCommand[0]) {
+                case "ranking":
+                    Command rankingCommand = new Ranking();
+                    rankingCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
+                    return rankingCommand.execute(log);
+
+                case "stats":
+                    Command statsCommand = new Stats();
+                    statsCommand.setArgs(Arrays.copyOfRange(parsedCommand, 1, parsedCommand.length));
+                    return statsCommand.execute(log);
+
+                case "restart":
+                    return new SystemCommands().restart(repoName);
+
+                case "help":
+                    return new SystemCommands().help();
+
+                case "quit":
+                    return new SystemCommands().quit(repoName);
+
+                case "history":
+                    return new SystemCommands().history();
+
+                case "report":
+                    return new SystemCommands().report(log, repoName);
+
+                default:
+                    System.out.println("\u001B[31mCommand not recognised. Enter 'help' for a list of valid commands.\u001B[0m");
+                    return Boolean.TRUE;
+            }
         }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("\u001B[31mThere was an issue with parsing the last command.\u001B[0m");
+            return Boolean.FALSE;
+        }
+
     }
 
 
@@ -142,7 +143,9 @@ public class Application {
         while (true) {
             try {
                 System.out.println("Enter a command:");
-                executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName);
+                if (Boolean.FALSE.equals(executeCommand(scanner.nextLine().trim().toLowerCase().split(" "), gitLog, repoName))){
+                    System.out.println("\u001B[31mCommand could not be executed. Try again or enter 'restart' to start over.\u001B[0m");
+                }
             }
             catch (Exception e){
                 System.err.println("DEBUG error taking command input");
@@ -153,9 +156,10 @@ public class Application {
     }
 
     public static void main(String[] args){
-        System.out.println("Welcome to the GitHub miner! \n");
+        System.out.println("\nWelcome to the GitHub miner!\n");
 
         Scanner scanner = new Scanner(System.in);
+
 
         AuthRequest request = authenticateUser(scanner);
 
@@ -164,7 +168,10 @@ public class Application {
         Repository repo = Repository.getInstance("url", "repoOwner", "repoName");
 
         GitLog gitLog = new GitLog();
-        Boolean logged = gitLog.runGitLog(repo.repoName); //TODO: something with a failed log
+        if (Boolean.FALSE.equals(gitLog.runGitLog(repo.repoName))){
+            System.out.println("\u001B[31mThere was an error while getting commit information. Force restarting application now.\u001B[0m");
+            new SystemCommands().restart(repo.repoName);
+        }
 
         System.out.println("To see a list of commands, please enter 'help'.");
         mainCommandLoop(scanner, gitLog, repo.repoName);

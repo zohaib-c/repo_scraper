@@ -62,7 +62,7 @@ public class RankingContributorWeekday extends RankingContributor implements Com
 
     private static void printResult(TreeMap<String, Integer> dayAuthors, String day){
         int counter = 0;
-        int limit = 0;
+        int limit;
 
         if (dayAuthors.size() < LIMIT) limit = dayAuthors.size();
         else limit = LIMIT;
@@ -100,7 +100,7 @@ public class RankingContributorWeekday extends RankingContributor implements Com
 
             //Get the day of the week when the commit was made
             for (GitCommit commit: repoCommits){
-                long unixDate = commit.getUnixDate();;
+                long unixDate = commit.getUnixDate();
                 Date date = new java.util.Date(unixDate * 1000L);
                 dates.add(date.getDay());
             }
@@ -127,6 +127,8 @@ public class RankingContributorWeekday extends RankingContributor implements Com
             printResult(rankedWedAuthors, "Wednesdays");
             printResult(rankedThuAuthors, "Thursdays");
             printResult(rankedFriAuthors, "Fridays");
+
+            History.getInstance().push("ranking contributor weekday");
 
             return Boolean.TRUE;
         }

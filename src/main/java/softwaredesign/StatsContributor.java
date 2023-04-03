@@ -69,13 +69,13 @@ public class StatsContributor extends Stats implements Command {
         System.out.println("Number of contributors: " + numOfContr);
         System.out.println("Contributor with the most commits: " + mostCommits.getKey() + " with " + mostCommits.getValue() + " commits");
         if(Objects.equals(mostWeekdays.getValue(), 0)) {
-            System.out.println("Noone contributed on weekdays.");
+            System.out.println("No one contributed on weekdays.");
         }
         else {
             System.out.println("Contributor who worked most from Monday to Friday: " + mostWeekdays.getKey() + " with " + mostWeekdays.getValue() + " commits");
         }
         if(Objects.equals(mostWeekends.getValue(), 0)) {
-            System.out.println("Noone contributed during the weekend.");
+            System.out.println("No one contributed during the weekend.");
         }
         else {
             System.out.println("Contributor who worked most during the weekends: " + mostWeekends.getKey() + " with " + mostWeekends.getValue() + " commits");
@@ -85,6 +85,8 @@ public class StatsContributor extends Stats implements Command {
             System.out.println(contr);
         }
         System.out.println("\n");
+
+        History.getInstance().push("stats contributor");
 
         return Boolean.TRUE;
     }

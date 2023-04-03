@@ -39,7 +39,7 @@ public class RankingContributorCommit extends RankingContributor implements Comm
         System.out.println("\nList of top contributors ranked by number of commits made: ");
 
         int counter = 0;
-        int limit = 0;
+        int limit;
 
         if (rankedAuthors.size() < LIMIT) limit = rankedAuthors.size();
         else limit = LIMIT;
@@ -79,6 +79,8 @@ public class RankingContributorCommit extends RankingContributor implements Comm
             rankedAuthors.putAll(uniqueAuthors);
 
             printResult();
+
+            History.getInstance().push("ranking contributor commit");
 
             return Boolean.TRUE;
         }

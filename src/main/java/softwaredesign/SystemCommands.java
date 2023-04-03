@@ -100,12 +100,20 @@ public class SystemCommands {
         helperDelRepo(dir);
     }
 
-    public void quit(String repoName){
+    public Boolean quit(String repoName){
         deleteRepo(repoName);
-        System.exit(0);
+
+        try {
+            System.exit(0);
+            return Boolean.TRUE;
+        }
+        catch (Exception e){
+            System.err.println("Could not exit process");
+            return Boolean.FALSE;
+        }
     }
 
-    public void help(){
+    public Boolean help(){
         System.out.println("The user can mine different information from the github repo by issuing command-line instructions following this syntax.\n" +
                 "In order to use the ranking option adhere to the following usage:\n" +
                 "\n" +
@@ -133,7 +141,7 @@ public class SystemCommands {
                 "  contributor \t\t\t- print stats of contributors\n" +
                 "\n" +
                 "Available system commands:\n" +
-                "  history \t\t\t\t- prints history of all commands\n" +
+                "  history \t\t\t\t- prints history of all commands (please note that history also contains all subcommands, if there are any, of any entered command)\n" +
                 "  help \t\t\t\t\t- prints possible commands\n" +
                 "  report \t\t\t\t- create a report as a text file with your desired commands\n" +
                 "  restart \t\t\t\t- restarts the program\n" +
@@ -146,18 +154,21 @@ public class SystemCommands {
                 "  $ ranking\n" +
                 "  $ stats contributor\n" +
                 "  $ history\n");
+
+        return Boolean.TRUE;
     }
 
-    public void report(GitLog log,String repoName){
+    public Boolean report(GitLog log,String repoName){
 
         List<String[]> reportCommands = getReportCommands();
-        PrintStream originalOutput = null;
+        PrintStream originalOutput;
 
         try {
             originalOutput = redirectOutput(repoName);
         } catch (IOException e) {
             System.err.println("Failed to redirect output: " + e.getMessage());
             e.printStackTrace();
+            return Boolean.FALSE;
         }
 
         for(String[] command : reportCommands) {
@@ -181,21 +192,36 @@ public class SystemCommands {
 
         try{
             openReport();
+            return Boolean.TRUE;
         } catch (IOException e) {
             System.err.println("Error opening the report.txt file: " + e.getMessage());
+            return Boolean.FALSE;
         }
     }
 
-    public void history(){
-        History history = History.getInstance();
-        System.out.println("\nHistory of the previously entered commands: ");
-        while (!history.isEmpty()) {
-            System.out.println("\t\t" + history.pop());
+    public Boolean history(){
+        if (History.getInstance().isEmpty()){
+            System.out.println("There are no commands in history yet. As you start entering commands they will be " +
+                    "stored in history and then you can view them.");
+            return Boolean.TRUE;
         }
-        System.out.println("\n");
+
+        try {
+            History history = History.getInstance();
+            System.out.println("\nHistory of the previously entered commands: ");
+            while (!history.isEmpty()) {
+                System.out.println("\t\t" + history.pop());
+            }
+            System.out.println("\n");
+            return Boolean.TRUE;
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Could not print history");
+            return Boolean.FALSE;
+        }
     }
 
-    public void restart(String repoName) {
+    public Boolean restart(String repoName) {
         try {
             String javaBin = System.getProperty("java.home") +
                     File.separator + "bin" + File.separator + "java";
@@ -226,15 +252,17 @@ public class SystemCommands {
             try {
                 process.waitFor();
             } catch (InterruptedException e) {
-                System.err.println("Process interrupted: " +
-                        e.getMessage());
+                System.err.println("Process interrupted: " + e.getMessage());
+                return Boolean.FALSE;
             }
 
         } catch (IOException e) {
-            System.err.println("Failed to restart the application: " +
-                    e.getMessage());
+            System.err.println("Failed to restart the application: " + e.getMessage());
             e.printStackTrace();
+            return Boolean.FALSE;
         }
+
         System.exit(0);
+        return Boolean.TRUE;
     }
 }

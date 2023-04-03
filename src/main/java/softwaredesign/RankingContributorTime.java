@@ -38,7 +38,7 @@ public class RankingContributorTime extends RankingContributor implements Comman
 
     private void printResult(){
         int counter = 0;
-        int limit = 0;
+        int limit;
 
         if (rankedAuthors.size() < LIMIT) limit = rankedAuthors.size();
         else limit = LIMIT;
@@ -86,6 +86,8 @@ public class RankingContributorTime extends RankingContributor implements Comman
             rankedAuthors.putAll(uniqueAuthors);
 
             printResult();
+
+            History.getInstance().push("ranking contributor time");
 
             return Boolean.TRUE;
         }

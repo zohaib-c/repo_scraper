@@ -51,6 +51,7 @@ public class StatsCommit extends Stats implements Command {
         date = new java.util.Date(repoCommits.get(repoCommits.size()-1).getUnixDate() * 1000L);
         System.out.println("Commit with the highest Churn: '" + repoCommits.get(commitIndexHighestChurn).getMessage() + "' written by " + repoCommits.get(commitIndexHighestChurn).getAuthor() + " on " + sdformat.format(date));
 
+        History.getInstance().push("stats commit");
         return Boolean.TRUE;
     }
 }

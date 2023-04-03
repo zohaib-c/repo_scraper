@@ -18,11 +18,8 @@ public class Stats implements Command {
 
     @Override
     public Boolean execute(GitLog log) {
-        History h = History.getInstance();
         List<GitCommit> repoCommits = log.getCommits();
         Repository repo = Repository.getInstance("url", "repoOwner", "repoName");
-
-        System.out.println("Summary of Stats for the repository '" + repo.repoName + "' owned by " + repo.repoOwner);
 
         if (repoCommits.size() < 1) {
             System.out.println("There are no commits (and consequently no contributors) in this repository");
@@ -35,26 +32,31 @@ public class Stats implements Command {
                 case "commit":
                     Command statsCom = new StatsCommit();
                     statsCom.execute(log);
-                    h.push("stats commit");
                     break;
+
                 case "contributor":
                     Command statsCont = new StatsContributor();
                     statsCont.execute(log);
-                    h.push("stats contributor");
                     break;
+
                 default:
                     System.out.println("Unrecognized argument for stats. Type 'help' for a list of commands.");
                     return Boolean.FALSE;
             }
         }
         else {
+            System.out.println("Summary of Stats for the repository '" + repo.repoName + "' owned by " + repo.repoOwner + ": ");
+
+
             System.out.println("COMMITS");
             Command statsCom = new StatsCommit();
             statsCom.execute(log);
+
             System.out.println("\nCONTRIBUTORS");
             Command statsCont = new StatsContributor();
             statsCont.execute(log);
-            h.push("stats");
+
+            History.getInstance().push("stats");
         }
         return Boolean.TRUE;
     }

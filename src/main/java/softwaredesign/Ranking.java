@@ -29,11 +29,13 @@ public class Ranking implements Command{
                     rankComm.setArgs(Arrays.copyOfRange(args, 1, args.length));
                     rankComm.execute(log);
                     break;
+
                 case "contributor":
                     Command rankCont = new RankingContributor();
                     rankCont.setArgs(Arrays.copyOfRange(args, 1, args.length));
                     rankCont.execute(log);
                     break;
+
                 default:
                     System.out.println("\u001B[31mPlease enter a valid command, type 'help' for more info \u001B[0m");
                     break;
@@ -47,6 +49,7 @@ public class Ranking implements Command{
             Command rankCont = new RankingContributor();
             rankCont.setArgs(Arrays.copyOfRange(args, 0, args.length));
             rankCont.execute(log);
+
             h.push("ranking");
         }
         return Boolean.TRUE;

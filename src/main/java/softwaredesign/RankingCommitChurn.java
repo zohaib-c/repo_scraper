@@ -33,7 +33,7 @@ public class RankingCommitChurn extends RankingCommit implements Command{
 
     private void printResult(){
         int counter = 0;
-        int limit = 0;
+        int limit;
 
         if (repoCommits.size() < LIMIT) limit = repoCommits.size();
         else limit = LIMIT;
@@ -79,6 +79,8 @@ public class RankingCommitChurn extends RankingCommit implements Command{
             rankedCommits.putAll(commitsChurn);
 
             printResult();
+
+            History.getInstance().push("ranking commit churn");
 
             return Boolean.TRUE;
         }

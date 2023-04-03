@@ -46,7 +46,7 @@ public class RankingContributorWeekend extends RankingContributor implements Com
 
     private void printResult(){
         int counter = 0;
-        int limit = 0;
+        int limit;
 
         if (rankedAuthors.size() < LIMIT) limit = rankedAuthors.size();
         else limit = LIMIT;
@@ -75,7 +75,7 @@ public class RankingContributorWeekend extends RankingContributor implements Com
 
             //Get days of the week from commits log
             for (GitCommit commit: repoCommits){
-                long unixDate = commit.getUnixDate();;
+                long unixDate = commit.getUnixDate();
                 Date date = new java.util.Date(unixDate * 1000L);
                 dates.add(date.getDay());
             }
@@ -87,6 +87,8 @@ public class RankingContributorWeekend extends RankingContributor implements Com
             rankedAuthors.putAll(uniqueAuthors);
 
             printResult();
+
+            History.getInstance().push("ranking contributor weekend");
 
             return Boolean.TRUE;
         }

@@ -29,7 +29,6 @@ public class GitLog {
 
         String[] statsParts = Arrays.copyOfRange(parts, 3, parts.length);
 
-        int numFilesChanged = statsParts.length/3;
         int additions = 0;
         int deletions = 0;
 
@@ -52,7 +51,7 @@ public class GitLog {
             }
         }
 
-        return new GitCommit(author, unixDate, messageSubject, additions, deletions, numFilesChanged);
+        return new GitCommit(author, unixDate, messageSubject, additions, deletions);
     }
 
     public Boolean runGitLog(String dir){
