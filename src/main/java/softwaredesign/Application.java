@@ -7,8 +7,17 @@ import java.util.Scanner;
 //medium size test repo: https://github.com/fauxpilot/fauxpilot.git
 //token test: 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
 
+
+/*
+A lot of System.err statements were left in the code. The idea is that these are (ideally) never read by the user and
+are only helpful for a future developer debugging the code.
+*/
 public class Application {
 
+    /*
+    Function loops until a yes or no is entered. We used this function instead of incorporating this code block into
+    other functions because (a) there are two uses where auth response is taken and (b) it makes the code more readable.
+    */
     private static String takeValidAuthResponse(Scanner scanner){
         String authRes = scanner.nextLine().trim().toLowerCase();
         while (!authRes.equals("yes") && !authRes.equals("no")){
@@ -58,6 +67,7 @@ public class Application {
         String url = "";
         String repoName = "";
         String repoOwner = "";
+
         while (Boolean.FALSE.equals(isSet)){
             System.out.println("Please enter a valid GitHub repository url you would like to clone:");
             url = scanner.nextLine().trim().toLowerCase();
@@ -66,7 +76,8 @@ public class Application {
                 repoOwner = urlParts[3];
                 repoName = urlParts[4].replace(".git", "");
                 isSet = true;
-            } catch (ArrayIndexOutOfBoundsException e){
+            }
+            catch (ArrayIndexOutOfBoundsException e){ // an exception may be thrown if there is a parsing error
                 System.out.println("\u001B[31mInvalid URL. '" + url + "' is not a valid HTTPS git url. "
                         + "Try again.\u001B[0m\n");
             }
@@ -98,6 +109,7 @@ public class Application {
     }
 
 
+    //This function is boolean as the program must know if the command has not been executed
     private static Boolean executeCommand(String[] parsedCommand, GitLog log, String repoName){
         try {
             switch (parsedCommand[0]) {

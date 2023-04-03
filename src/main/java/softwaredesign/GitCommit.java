@@ -1,5 +1,9 @@
 package softwaredesign;
 
+
+/* use of private final attributes to disallow any unwanted (future) classes from editing these attributes as they are
+only set once by the constructor from GitLog.
+*/
 public class GitCommit {
     private final String author;
     private final long unixDate;

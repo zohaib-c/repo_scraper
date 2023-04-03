@@ -131,7 +131,7 @@ public class SystemCommands {
                 "  commit churn \t\t- rank commits based on churn\n" +
                 "  commit recent \t\t- rank commits based on recent\n" +
                 "  contributor \t\t\t- rank contributors based on commits, weekend, time, and weekday\n" +
-                "  contributor commits \t- rank contributors based on the numbers of commits\n" +
+                "  contributor commit \t- rank contributors based on the numbers of commits\n" +
                 "  contributor weekend \t- rank contributors based on who worked most on the weekends\n" +
                 "  contributor time \t\t- rank contributors based on who is in the project for the longest time\n" +
                 "  contributor weekday \t- rank contributors based on who worked most on given weekday\n" +

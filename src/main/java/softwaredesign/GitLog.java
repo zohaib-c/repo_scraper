@@ -33,19 +33,29 @@ public class GitLog {
         int deletions = 0;
 
         for (int i = 0; i < statsParts.length; i++){
-            if (i % 3 == 0) {
+            if (i % 3 == 0) { // every third entry (including the 0th) is additions
                 try {
                     additions += Integer.parseInt(statsParts[i]);
                 }
                 catch (NumberFormatException e){
+                    /*
+                    sometimes the file added is, for example, a picture and git uses the '-' to represent no lines added,
+                    in that case the Integer.parseInt function throws this exception. We catch this exception and add 0
+                    to deletions.
+                     */
                     additions += 0;
                 }
             }
-            else if (i % 3 == 1){
+            else if (i % 3 == 1){ // every fourth entry (including the 1st) is deletions
                 try {
                     deletions += Integer.parseInt(statsParts[i]);
                 }
                 catch (NumberFormatException e){
+                    /*
+                    sometimes the file added is, for example, a picture and git uses the '-' to represent no lines added,
+                    in that case the Integer.parseInt function throws this exception. We catch this exception and add 0
+                    to deletions.
+                     */
                     deletions += 0;
                 }
             }
@@ -56,6 +66,15 @@ public class GitLog {
 
     public Boolean runGitLog(String dir){
         Boolean logSuccessful = Boolean.FALSE;
+        /*
+        Ths git log command uses pretty format argument to get the following attributes of commits:
+            - an = author name
+            - at = unix time of commit
+            - s = commit message subject
+
+        The numstat argument is used to get a concise version of commit stats as needed, it outputs:
+            additions deletions fileChanged
+         */
         String command = "git log --pretty=format:--BEGIN--\n%an\t%at\t%s --numstat";
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
 
@@ -70,6 +89,11 @@ public class GitLog {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 StringBuilder singleCommit = new StringBuilder();
                 String line;
+
+                /*
+                This loop starts reading at "--BEGIN--" and reads until it encounters another "--BEGIN--" or an empty line.
+                This is because of the format in which git log function returns (see report)
+                 */
                 while ((line = reader.readLine()) != null) {
                     if (line.equals("--BEGIN--")){
                         line = reader.readLine();

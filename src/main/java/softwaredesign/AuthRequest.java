@@ -25,6 +25,11 @@ public class AuthRequest {
         UserService userService = new UserService(client);
 
         try {
+            /*
+            If the userService library is able to get the user, the access token is valid. Otherwise, it throws a
+            RequestException meaning the token was invalid.
+            */
+
             User user = userService.getUser();
             System.out.println("Authenticated as: " + user.getLogin());
             isAuthenticated = Boolean.TRUE;
