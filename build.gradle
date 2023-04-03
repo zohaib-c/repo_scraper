@@ -16,6 +16,6 @@ repositories {
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.13.1'
-    implementation group: 'eclipse', name:'org.eclipse.egit.github.core-2.1.5', version: '2.1.5'
-    implementation group:'gson', name:'gson-2.2.2', version:'2.2.2'
+    implementation group: 'eclipse', name:'org.eclipse.egit.github.core', version: '2.1.5'
+    implementation group:'gson', name:'gson', version:'2.2.2'
 }
