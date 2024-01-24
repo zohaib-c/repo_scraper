@@ -1,3 +1,2 @@
-# Software Design 
-This is the template for the team project of the Software Design course at the Vrije Universiteit Amsterdam. 
-
+# Software Design - Repository Scraper
+A GitHub Repository Scraper, written in Java, for a Software Design course at the VU.
