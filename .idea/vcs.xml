@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fauxpilot" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/first_website" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gamebase-connect4" vcs="Git" />
+  </component>
+</project>
